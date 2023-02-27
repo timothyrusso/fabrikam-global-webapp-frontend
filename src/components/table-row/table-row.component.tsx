@@ -5,15 +5,18 @@ import {
   Editable,
   EditablePreview,
   EditableInput,
-  Tooltip,
   Select,
   ButtonGroup,
   Button,
-  Input
+  Input,
+  NumberInputField,
+  NumberInput
 } from '@chakra-ui/react';
-import { CloseIcon } from '@chakra-ui/icons';
-import { FC } from 'react';
+import { DeleteIcon } from '@chakra-ui/icons';
+import { FC, useState } from 'react';
 import { updateUser } from '../../utils/api';
+import { AiFillSave } from "react-icons/ai";
+import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 export type TableRowComponentProps = {
   firstName: string;
@@ -34,16 +37,14 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
   endDate,
   userId,
 }) => {
+  const [value, setValue] = useState(userId.toString())
 
   return (
     <Tr>
       <Td>
-      <Input
-        value={userId}
-        placeholder='UserId'
-        size='md'
-        variant='unstyled'
-      />
+        <NumberInput value={value} onChange={(value) => setValue(value)} variant='unstyled'>
+          <NumberInputField maxLength={5} />
+        </NumberInput>
       </Td>
       <Td>
         <Editable defaultValue={firstName}>
@@ -85,9 +86,8 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
       <Td>
         <ButtonGroup size='sm' isAttached variant='outline'>
           <Button>Scheda utente</Button>
-          <Tooltip label='Cancella utente'>
-            <IconButton aria-label="Remove user" icon={<CloseIcon color='red' />} />
-          </Tooltip>
+          <IconButton aria-label="Save user" icon={<AiFillSave />} />
+          <IconButton aria-label="Remove user" icon={<DeleteIcon />} />
         </ButtonGroup>
       </Td>
     </Tr>
