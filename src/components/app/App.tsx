@@ -4,6 +4,7 @@ import { ColorModeSwitcher } from '../colorModeSwitcher/ColorModeSwitcher';
 import { TableComponent } from '../table/table.component';
 import { getAllUsers } from '../../utils/api';
 import { useEffect, useState } from 'react';
+import { ReactComponent as Logo } from '../../assets/logo.svg'
 
 export type User = {
   id: number;
@@ -24,18 +25,18 @@ export type User = {
 
 export const App = () => {
   const [data, setData] = useState<User[]>([]);
-  useEffect(() => { getAllUsers().then((response) => { setData(response); }).catch((err) => { console.log(err); }); }, []);
+  // useEffect(() => { getAllUsers().then((response) => { setData(response); }).catch((err) => { console.log(err); }); }, []);
 
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
         <Grid minH="100vh" p={3}>
           <Flex>
-            <Center w='220px' h='30px' color='green.400'>
-              <Text fontSize='3xl'>Fabrikam Global</Text>
+            <Center w='220px' h='30px' color='green.400' marginLeft={5}>
+              <Logo />
             </Center>
             <Spacer />
-            <ColorModeSwitcher justifySelf="flex-end" />
+            <ColorModeSwitcher justifySelf="flex-end" marginRight={5}/>
           </Flex>
           <TableComponent users={data} />
         </Grid>
