@@ -1,14 +1,15 @@
 import {
   Tr,
   Td,
-  ButtonGroup,
-  Button,
   IconButton,
   Editable,
   EditablePreview,
   EditableInput,
   Tooltip,
-  Select
+  Select,
+  ButtonGroup,
+  Button,
+  Input
 } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 import { FC } from 'react';
@@ -37,10 +38,12 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
   return (
     <Tr>
       <Td>
-        <Editable defaultValue={userId.toString()}>
-          <EditablePreview />
-          <EditableInput />
-        </Editable>
+      <Input
+        value={userId}
+        placeholder='UserId'
+        size='md'
+        variant='unstyled'
+      />
       </Td>
       <Td>
         <Editable defaultValue={firstName}>
@@ -80,10 +83,10 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
         </Editable>
       </Td>
       <Td>
-        <ButtonGroup size="sm" isAttached variant="outline">
-          <Button>Salva</Button>
+        <ButtonGroup size='sm' isAttached variant='outline'>
+          <Button>Scheda utente</Button>
           <Tooltip label='Cancella utente'>
-            <IconButton aria-label="Remove user" icon={<CloseIcon />} />
+            <IconButton aria-label="Remove user" icon={<CloseIcon color='red' />} />
           </Tooltip>
         </ButtonGroup>
       </Td>
