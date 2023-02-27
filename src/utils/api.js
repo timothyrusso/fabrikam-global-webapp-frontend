@@ -55,3 +55,38 @@ export const createUser = ({
     }),
   }).then(checkResponse);
 };
+
+export const updateUser = ({
+  firstName,
+  lastName,
+  birthDay,
+  company,
+  startDate,
+  endDate,
+  addressOne,
+  addressTwo,
+  city,
+  province,
+  userId,
+}) => {
+  return fetch(`${BASE_URL}`, {
+    method: 'PATCH',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      firstName,
+      lastName,
+      birthDay,
+      company,
+      startDate,
+      endDate,
+      addressOne,
+      addressTwo,
+      city,
+      province,
+      userId,
+    }),
+  }).then(checkResponse);
+};

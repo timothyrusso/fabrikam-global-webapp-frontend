@@ -7,9 +7,12 @@ import {
   Editable,
   EditablePreview,
   EditableInput,
+  Tooltip,
+  Select
 } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 import { FC } from 'react';
+import { updateUser } from '../../utils/api';
 
 export type TableRowComponentProps = {
   firstName: string;
@@ -30,14 +33,46 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
   endDate,
   userId,
 }) => {
+
   return (
     <Tr>
-      <Td>{userId}</Td>
-      <Td>{firstName}</Td>
-      <Td>{lastName}</Td>
-      <Td>{birthDay}</Td>
-      <Td>{company}</Td>
-      <Td>{startDate}</Td>
+      <Td>
+        <Editable defaultValue={userId.toString()}>
+          <EditablePreview />
+          <EditableInput />
+        </Editable>
+      </Td>
+      <Td>
+        <Editable defaultValue={firstName}>
+          <EditablePreview />
+          <EditableInput />
+        </Editable>
+      </Td>
+      <Td>
+        <Editable defaultValue={lastName}>
+          <EditablePreview />
+          <EditableInput />
+        </Editable>
+      </Td>
+      <Td>
+        <Editable defaultValue={birthDay}>
+          <EditablePreview />
+          <EditableInput />
+        </Editable>
+      </Td>
+      <Td>
+        <Select placeholder={company}>
+          <option value='option1'>Option 1</option>
+          <option value='option2'>Option 2</option>
+          <option value='option3'>Option 3</option>
+        </Select>
+      </Td>
+      <Td>
+        <Editable defaultValue={startDate}>
+          <EditablePreview />
+          <EditableInput />
+        </Editable>
+      </Td>
       <Td>
         <Editable defaultValue={endDate}>
           <EditablePreview />
@@ -47,7 +82,9 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
       <Td>
         <ButtonGroup size="sm" isAttached variant="outline">
           <Button>Salva</Button>
-          <IconButton aria-label="Remove user" icon={<CloseIcon />} />
+          <Tooltip label='Cancella utente'>
+            <IconButton aria-label="Remove user" icon={<CloseIcon />} />
+          </Tooltip>
         </ButtonGroup>
       </Td>
     </Tr>

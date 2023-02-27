@@ -1,25 +1,18 @@
-import { Table, Thead, Tbody, Tr, Th, TableContainer } from '@chakra-ui/react';
+import { Table, Thead, Tbody, Tr, Th, TableContainer, TableCaption } from '@chakra-ui/react';
 import { TableRowComponent } from '../table-row/table-row.component';
-import { useEffect, useState } from 'react';
-import { getAllUsers } from '../../utils/api';
-import { TableRowComponentProps } from '../table-row/table-row.component';
+import { User } from '../app/App';
+import { FC } from 'react';
 
-export const TableComponent = () => {
-  const [data, setData] = useState<TableRowComponentProps[]>([]);
+interface TableComponentProps extends React.HTMLAttributes<HTMLElement> {
+  users: User[];
+}
 
-  useEffect(() => {
-    getAllUsers()
-      .then((response) => {
-        setData(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+export const TableComponent: FC<TableComponentProps> = (data) => {
 
   return (
-    <TableContainer marginTop={3}>
-      <Table variant="simple" border="2px" borderColor="gray.200">
+    <TableContainer marginTop={3} marginLeft={5} marginRight={5}>
+      <Table variant="unstyled" border="2px" borderColor="gray.200">
+      <TableCaption>Clicca sull'elemento della tabella per modificare il dato.</TableCaption>
         <Thead>
           <Tr>
             <Th>Id dipendente</Th>
@@ -29,20 +22,21 @@ export const TableComponent = () => {
             <Th>Società</Th>
             <Th>Data inizio</Th>
             <Th>Data fine</Th>
-            <Th>Azioni</Th>
+            <Th></Th>
           </Tr>
         </Thead>
         <Tbody>
-          {data.map((data) => {
+          {data.users.map((user) => {
             return (
               <TableRowComponent
-                userId={data.userId}
-                firstName={data.firstName}
-                lastName={data.lastName}
-                birthDay={data.birthDay}
-                company={data.company}
-                startDate={data.startDate}
-                endDate={data.endDate}
+                key={user.userId.toString()}
+                userId={user.userId}
+                firstName={user.firstName}
+                lastName={user.lastName}
+                birthDay={user.birthDay}
+                company={user.company}
+                startDate={user.startDate}
+                endDate={user.endDate}
               />
             );
           })}
