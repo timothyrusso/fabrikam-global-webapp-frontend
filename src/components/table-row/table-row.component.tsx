@@ -2,92 +2,130 @@ import {
   Tr,
   Td,
   IconButton,
-  Editable,
-  EditablePreview,
-  EditableInput,
-  Select,
   ButtonGroup,
-  Button,
-  Input,
-  NumberInputField,
-  NumberInput
 } from '@chakra-ui/react';
-import { DeleteIcon } from '@chakra-ui/icons';
+import { DeleteIcon, EditIcon, CloseIcon, CheckIcon } from '@chakra-ui/icons';
 import { FC, useState } from 'react';
+import { User } from '../app/App';
 import { updateUser } from '../../utils/api';
-import { AiFillSave } from "react-icons/ai";
-import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 export type TableRowComponentProps = {
-  firstName: string;
-  lastName: string;
-  birthDay: string;
-  company: string;
-  startDate: string;
-  endDate: string;
-  userId: number;
+  onSave: any;
+  user: User
 };
 
-export const TableRowComponent: FC<TableRowComponentProps> = ({
-  firstName,
-  lastName,
-  birthDay,
-  company,
-  startDate,
-  endDate,
-  userId,
-}) => {
-  const [value, setValue] = useState(userId.toString())
+export const TableRowComponent: FC<TableRowComponentProps> = ({ user, onSave }) => {
+  const [editMode, setEditMode] = useState(false);
+  const [updatedUser, setUpdatedUser] = useState(user);
+
+  const handleChange = (event: any) => {
+    const { name, value } = event.target;
+    setUpdatedUser((updatedUser) => ({ ...updatedUser, [name]: value }));
+    console.log(updatedUser);
+  }
+
+  const handleEdit = () => {
+    setEditMode(true);
+  };
+
+  const handleCancel = () => {
+    setEditMode(false);
+  };
+
+  const handleSave = () => {
+    console.log(updatedUser)
+    onSave(updatedUser);
+    setEditMode(false);
+  };
+
+  const parseDate = (date: string) => new Date(Date.parse(date))
+  const parseDateString = (date: any) => date.toISOString().slice(0, 10);
+  
 
   return (
     <Tr>
-      <Td>
-        <NumberInput value={value} onChange={(value) => setValue(value)} variant='unstyled'>
-          <NumberInputField maxLength={5} />
-        </NumberInput>
-      </Td>
-      <Td>
-        <Editable defaultValue={firstName}>
-          <EditablePreview />
-          <EditableInput />
-        </Editable>
-      </Td>
-      <Td>
-        <Editable defaultValue={lastName}>
-          <EditablePreview />
-          <EditableInput />
-        </Editable>
-      </Td>
-      <Td>
-        <Editable defaultValue={birthDay}>
-          <EditablePreview />
-          <EditableInput />
-        </Editable>
-      </Td>
-      <Td>
-        <Select placeholder={company}>
-          <option value='option1'>Option 1</option>
-          <option value='option2'>Option 2</option>
-          <option value='option3'>Option 3</option>
-        </Select>
-      </Td>
-      <Td>
-        <Editable defaultValue={startDate}>
-          <EditablePreview />
-          <EditableInput />
-        </Editable>
-      </Td>
-      <Td>
-        <Editable defaultValue={endDate}>
-          <EditablePreview />
-          <EditableInput />
-        </Editable>
-      </Td>
+      {editMode ? <Td>
+        <input
+          onKeyPress={(event) => {
+            if (!/[0-9]/.test(event.key)) {
+              event.preventDefault();
+            }
+          }}
+          onChange={handleChange}
+          name='userId'
+          maxLength={5}
+          minLength={5}
+          placeholder='userId'
+          value={updatedUser.userId}
+          style={{maxWidth: '130px'}}
+        />
+      </Td> : <Td>
+        {user.userId}
+      </Td>}
+      {editMode ? <Td><input
+        value={updatedUser.firstName}
+        onChange={handleChange}
+        placeholder='firstName'
+        name='firstName'
+        style={{maxWidth: '130px', border: '2px solid blue', borderRadius: '5px', backgroundColor: 'transparent', padding: '4px'}}
+      /></Td> : <Td>
+        {user.firstName}
+      </Td>}
+      {editMode ? <Td><input
+        value={updatedUser.lastName}
+        onChange={handleChange}
+        placeholder='lastName'
+        name='lastName'
+        style={{maxWidth: '130px'}}
+      /></Td> : <Td>
+        {user.lastName}
+      </Td>}
+      {editMode ? <Td><input
+        value={updatedUser.birthDay}
+        onChange={handleChange}
+        type='date'
+        min="1900-01-01" max="2100-12-31"
+        name='birthDay'
+      /></Td> : <Td>
+        {user.birthDay}
+      </Td>}
+      {editMode ? <Td>
+        <select placeholder='Seleziona azienda'
+          value={updatedUser.company}
+          onChange={handleChange}
+          name='company'
+        >
+          <option>Fabrikam</option>
+          <option>FabrikStore</option>
+          <option>FabrikDistribution</option>
+        </select>
+      </Td> : <Td>
+        {user.company}
+      </Td>}
+      {editMode ? <Td><input
+        value={updatedUser.startDate}
+        onChange={handleChange}
+        type='date'
+        min="1900-01-01" max="2100-12-31"
+        name='startDate'
+      /></Td> : <Td>
+        {user.startDate}
+      </Td>}
+      {editMode ? <Td><input
+        value={updatedUser.endDate}
+        onChange={handleChange}
+        type='date'
+        min="1900-01-01" max="2100-12-31"
+        name='endDate'
+      /></Td> : <Td>
+        {user.endDate}
+      </Td>}
       <Td>
         <ButtonGroup size='sm' isAttached variant='outline'>
-          <Button>Scheda utente</Button>
-          <IconButton aria-label="Save user" icon={<AiFillSave />} />
-          <IconButton aria-label="Remove user" icon={<DeleteIcon />} />
+          {editMode && <IconButton aria-label="Save user" icon={<CheckIcon />} onClick={handleSave} />}
+          {!editMode && <IconButton aria-label="Update user" icon={<EditIcon />} onClick={handleEdit} />}
+          {editMode && <IconButton aria-label="Close edit mode" icon={<CloseIcon />} onClick={handleCancel} />}
+          {!editMode && <IconButton aria-label="Remove user" icon={<DeleteIcon />} />}
         </ButtonGroup>
       </Td>
     </Tr>

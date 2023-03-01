@@ -1,13 +1,21 @@
-import { Table, Thead, Tbody, Tr, Th, TableContainer, TableCaption, Button, Stack } from '@chakra-ui/react';
+import { Table, Thead, Tbody, Tr, Th, TableContainer, Button, Stack } from '@chakra-ui/react';
 import { TableRowComponent } from '../table-row/table-row.component';
 import { User } from '../app/App';
 import { FC } from 'react';
 
 interface TableComponentProps extends React.HTMLAttributes<HTMLElement> {
   users: User[];
+  onUpdateUser: (index: number, updatedUser: User) => void;
 }
 
-export const TableComponent: FC<TableComponentProps> = (data) => {
+export const TableComponent: FC<TableComponentProps> = ({ users, onUpdateUser }) => {
+
+  const handleChange = (index: number, updatedUser: User) => {
+    const updatedData = [...users];
+    updatedData[index] = updatedUser;
+    onUpdateUser(index, updatedUser);
+    console.log(updatedUser)
+  };
 
   return (
 
@@ -18,7 +26,6 @@ export const TableComponent: FC<TableComponentProps> = (data) => {
         </Button>
       </Stack>
       <Table variant="unstyled" border="2px" borderColor="gray.200">
-      <TableCaption>Clicca sull'elemento della tabella per modificare velocemente il dato.</TableCaption>
         <Thead>
           <Tr>
             <Th>Id dipendente</Th>
@@ -32,17 +39,12 @@ export const TableComponent: FC<TableComponentProps> = (data) => {
           </Tr>
         </Thead>
         <Tbody>
-          {data.users.map((user) => {
+          {users.map((user, index) => {
             return (
               <TableRowComponent
-                key={user.userId.toString()}
-                userId={user.userId}
-                firstName={user.firstName}
-                lastName={user.lastName}
-                birthDay={user.birthDay}
-                company={user.company}
-                startDate={user.startDate}
-                endDate={user.endDate}
+                key={user.id.toString()}
+                onSave={(updatedUser: User) => handleChange(index, updatedUser)}
+                user={user}
               />
             );
           })}

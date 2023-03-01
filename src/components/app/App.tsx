@@ -4,7 +4,7 @@ import { TableComponent } from '../table/table.component';
 import { Navbar } from '../navbar/navbar.component';
 import { getAllUsers } from '../../utils/api';
 import { useEffect, useState } from 'react';
-import { data } from '../../utils/data'
+import { datas } from '../../utils/data'
 
 export type User = {
   id: number;
@@ -24,15 +24,22 @@ export type User = {
 }
 
 export const App = () => {
-  // const [data, setData] = useState<User[]>([]);
+  const [data, setData] = useState<User[]>(datas);
   // useEffect(() => { getAllUsers().then((response) => { setData(response); }).catch((err) => { console.log(err); }); }, []);
+
+  const handleUpdateUser = (index: number, updatedUser: User) => {
+    const updatedData = [...data];
+    updatedData[index] = updatedUser;
+    setData(updatedData);
+    // API call to update the data
+  };
 
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
         <Grid minH="100vh" p={3}>
           <Navbar />
-          <TableComponent users={data} />
+          <TableComponent users={data} onUpdateUser={handleUpdateUser} />
         </Grid>
       </Box>
     </ChakraProvider>)
