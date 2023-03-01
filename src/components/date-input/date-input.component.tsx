@@ -1,24 +1,22 @@
 import { FC } from "react"
-import { Td } from '@chakra-ui/react';
 
 export type DateInputComponentProps = {
-    inputValue: string;
+    inputValue?: string;
     name: string;
     handleChange: any;
+    classStyle?: string;
 }
 
-export const DateInputComponent: FC<DateInputComponentProps> = ({ inputValue, name, handleChange }) => {
+export const DateInputComponent: FC<DateInputComponentProps> = ({ inputValue, name, handleChange, classStyle }) => {
 
     return (
-        <Td>
             <input
                 value={inputValue}
                 onChange={handleChange}
                 type='date'
                 min="1900-01-01" max="2100-12-31"
                 name={name}
-                className='input'
+                className={`input ${classStyle}`}
             />
-        </Td>
     )
 }

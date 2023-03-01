@@ -24,8 +24,8 @@ export type User = {
 }
 
 export const App = () => {
-  const [data, setData] = useState<User[]>([]);
-  useEffect(() => { getAllUsers().then((response) => { setData(response); }).catch((err) => { console.log(err); }); }, []);
+  const [data, setData] = useState<User[]>(datas);
+  // useEffect(() => { getAllUsers().then((response) => { setData(response); }).catch((err) => { console.log(err); }); }, []);
 
   const handleUpdateUser = (index: number, updatedUser: User) => {
     const updatedData = [...data];

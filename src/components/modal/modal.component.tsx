@@ -1,5 +1,10 @@
-import { useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, Input, ModalFooter } from "@chakra-ui/react"
+import { useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, ModalFooter } from "@chakra-ui/react"
 import { useRef, FC, useState } from "react"
+import { DateInputComponent } from "../date-input/date-input.component";
+import { NumberInputComponent } from "../number-input/number-input.component";
+import { SelectInputComponent } from "../select-input/select-input.component";
+import { TextInputComponent } from "../text-input/text-input.component";
+import './modal.style.css';
 
 export type ModalComponentProps = {
     onCreate: any;
@@ -21,7 +26,7 @@ export const ModalComponent: FC<ModalComponentProps> = ({ onCreate }) => {
 
     const handleChange = (event: any) => {
         const { name, value } = event.target;
-        if(name === 'userId'){
+        if (name === 'userId') {
             setCreatedUser((createdUser) => ({ ...createdUser, [name]: parseInt(value) }));
         } else {
             setCreatedUser((createdUser) => ({ ...createdUser, [name]: value }));
@@ -51,71 +56,58 @@ export const ModalComponent: FC<ModalComponentProps> = ({ onCreate }) => {
                     <ModalBody pb={6}>
                         <FormControl>
                             <FormLabel>userId</FormLabel>
-                            <input
-                                onKeyPress={(event) => {
-                                    if (!/[0-9]/.test(event.key)) {
-                                        event.preventDefault();
-                                    }
-                                }}
-                                onChange={handleChange}
+                            <NumberInputComponent
+                                handleChange={handleChange}
                                 name='userId'
-                                maxLength={5}
-                                minLength={5}
-                                placeholder='userId'
+                                classStyle="modal"
                             />
                         </FormControl>
                         <FormControl>
                             <FormLabel>Nome</FormLabel>
-                            <Input name='firstName' onChange={handleChange} ref={initialRef} placeholder='Nome' />
+                            <TextInputComponent name='firstName' handleChange={handleChange} classStyle="modal" />
                         </FormControl>
                         <FormControl mt={4}>
                             <FormLabel>Cognome</FormLabel>
-                            <Input name='lastName' onChange={handleChange} placeholder='Cognome' />
+                            <TextInputComponent name='lastName' handleChange={handleChange} classStyle="modal" />
                         </FormControl>
                         <FormControl mt={4}>
                             <FormLabel>Data di nascita</FormLabel>
-                            <input
-                                onChange={handleChange}
-                                type='date'
-                                min="1900-01-01" max="2100-12-31"
+                            <DateInputComponent
+                                handleChange={handleChange}
                                 name='birthDay'
+                                classStyle="modal"
                             />
                         </FormControl>
                         <FormControl mt={4}>
                             <FormLabel>Societa'</FormLabel>
-                            <select placeholder='Seleziona azienda'
-                                onChange={handleChange}
+                            <SelectInputComponent
+                                handleChange={handleChange}
                                 name='company'
-                            >
-                                <option>Fabrikam</option>
-                                <option>FabrikStore</option>
-                                <option>FabrikDistribution</option>
-                            </select>
+                                classStyle="modal"
+                            />
                         </FormControl>
                         <FormControl mt={4}>
                             <FormLabel>Data di inizio</FormLabel>
-                            <input
-                                onChange={handleChange}
-                                type='date'
-                                min="1900-01-01" max="2100-12-31"
+                            <DateInputComponent
+                                handleChange={handleChange}
                                 name='startDate'
+                                classStyle="modal"
                             />
                         </FormControl>
                         <FormControl mt={4}>
                             <FormLabel>Data di fine</FormLabel>
-                            <input
-                                onChange={handleChange}
-                                type='date'
-                                min="1900-01-01" max="2100-12-31"
+                            <DateInputComponent
+                                handleChange={handleChange}
                                 name='endDate'
+                                classStyle="modal"
                             />
                         </FormControl>
                     </ModalBody>
                     <ModalFooter>
                         <Button onClick={handleCreate} colorScheme='blue' mr={3}>
-                            Save
+                            Salva
                         </Button>
-                        <Button onClick={onClose}>Cancel</Button>
+                        <Button onClick={onClose}>Annulla</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

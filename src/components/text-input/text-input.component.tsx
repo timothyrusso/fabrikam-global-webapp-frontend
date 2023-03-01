@@ -1,20 +1,20 @@
 import { FC } from "react"
-import { Td } from "@chakra-ui/react"
 
 export type TextInputComponentProps = {
-    inputValue: string;
+    inputValue?: string;
     name: string;
     handleChange: any;
+    classStyle?: string;
 }
 
-export const TextInputComponent: FC<TextInputComponentProps> = ({ inputValue, name, handleChange }) => {
+export const TextInputComponent: FC<TextInputComponentProps> = ({ inputValue, name, handleChange, classStyle }) => {
     return (
-        <Td><input
+        <input
             value={inputValue}
             onChange={handleChange}
             placeholder={name}
             name={name}
-            className='input'
-        /></Td>
+            className={`input ${classStyle}`}
+        />
     )
 }

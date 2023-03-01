@@ -1,15 +1,14 @@
 import { FC } from "react";
-import { Td } from "@chakra-ui/react";
 
 export type NumberInputComponentProps = {
-    inputValue: number;
+    inputValue?: number;
     name: string;
     handleChange: any;
+    classStyle?: string;
 }
 
-export const NumberInputComponent: FC<NumberInputComponentProps> = ({ inputValue, name, handleChange }) => {
+export const NumberInputComponent: FC<NumberInputComponentProps> = ({ inputValue, name, handleChange, classStyle }) => {
     return (
-        <Td>
             <input
                 onKeyPress={(event) => {
                     if (!/[0-9]/.test(event.key)) {
@@ -22,8 +21,7 @@ export const NumberInputComponent: FC<NumberInputComponentProps> = ({ inputValue
                 minLength={5}
                 placeholder={name}
                 value={inputValue}
-                className='input'
+                className={`input ${classStyle}`}
             />
-        </Td>
     )
 }
