@@ -13,36 +13,39 @@ import { TextInputComponent } from '../text-input/text-input.component';
 import { SelectInputComponent } from '../select-input/select-input.component';
 import { TableUnitComponent } from '../table-unit/table-unit.component';
 import './table-row.component.css';
-import { updateUser } from '../../utils/api';
 
 export type TableRowComponentProps = {
   onSave: any;
+  onDelete: any;
   user: User
 };
 
-export const TableRowComponent: FC<TableRowComponentProps> = ({ user, onSave }) => {
+export const TableRowComponent: FC<TableRowComponentProps> = ({ user, onSave, onDelete }) => {
   const [editMode, setEditMode] = useState(false);
   const [updatedUser, setUpdatedUser] = useState(user);
 
   const handleChange = (event: any) => {
     const { name, value } = event.target;
     setUpdatedUser((updatedUser) => ({ ...updatedUser, [name]: value }));
-    console.log(updatedUser);
   }
 
   const handleEdit = () => {
     setEditMode(true);
   };
 
-  const handleCancel = () => {
+  const handleClose = () => {
     setEditMode(false);
   };
 
   const handleSave = () => {
-    console.log(updatedUser)
     onSave(updatedUser);
     setEditMode(false);
   };
+
+  const handleDelete = () => {
+    onDelete(updatedUser)
+    setEditMode(false);
+  }
 
   return (
     <Tr>
@@ -69,9 +72,9 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({ user, onSave }) 
       <Td>
         <ButtonGroup size='sm' isAttached variant='outline'>
           {editMode && <IconButton aria-label="Save user" icon={<CheckIcon />} onClick={handleSave} />}
-          {editMode && <IconButton aria-label="Close edit mode" icon={<CloseIcon />} onClick={handleCancel} />}
+          {editMode && <IconButton aria-label="Close edit mode" icon={<CloseIcon />} onClick={handleClose} />}
           {!editMode && <IconButton aria-label="Update user" icon={<EditIcon />} onClick={handleEdit} />}
-          {!editMode && <IconButton aria-label="Remove user" icon={<DeleteIcon />} />}
+          {!editMode && <IconButton aria-label="Remove user" icon={<DeleteIcon />} onClick={handleDelete} />}
         </ButtonGroup>
       </Td>
     </Tr>

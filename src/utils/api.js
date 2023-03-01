@@ -37,7 +37,6 @@ export const createUser = ({
   return fetch(`${BASE_URL}`, {
     method: 'POST',
     headers: {
-      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -73,7 +72,6 @@ export const updateUser = ({
   return fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
     headers: {
-      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -89,5 +87,14 @@ export const updateUser = ({
       province,
       userId,
     }),
+  }).then(checkResponse);
+};
+
+export const deleteUser = ({ id }) => {
+  return fetch(`${BASE_URL}/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   }).then(checkResponse);
 };

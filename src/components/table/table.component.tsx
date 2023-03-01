@@ -6,15 +6,21 @@ import { FC } from 'react';
 interface TableComponentProps extends React.HTMLAttributes<HTMLElement> {
   users: User[];
   onUpdateUser: (index: number, updatedUser: User) => void;
+  onDeleteUser: (index: number, updatedUser: User) => void;
 }
 
-export const TableComponent: FC<TableComponentProps> = ({ users, onUpdateUser }) => {
+export const TableComponent: FC<TableComponentProps> = ({ users, onUpdateUser, onDeleteUser }) => {
 
   const handleChange = (index: number, updatedUser: User) => {
     const updatedData = [...users];
     updatedData[index] = updatedUser;
     onUpdateUser(index, updatedUser);
-    console.log(updatedUser)
+  };
+
+  const handleDelete = (index: number, updatedUser: User) => {
+    const updatedData = [...users];
+    updatedData[index] = updatedUser;
+    onDeleteUser(index, updatedUser);
   };
 
   return (
@@ -44,6 +50,7 @@ export const TableComponent: FC<TableComponentProps> = ({ users, onUpdateUser })
               <TableRowComponent
                 key={user.id.toString()}
                 onSave={(updatedUser: User) => handleChange(index, updatedUser)}
+                onDelete={(updatedUser: User) => handleDelete(index, updatedUser)}
                 user={user}
               />
             );

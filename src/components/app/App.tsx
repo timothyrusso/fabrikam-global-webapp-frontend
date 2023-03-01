@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ChakraProvider, Box, Grid, theme } from '@chakra-ui/react';
 import { TableComponent } from '../table/table.component';
 import { Navbar } from '../navbar/navbar.component';
-import { getAllUsers, updateUser } from '../../utils/api';
+import { getAllUsers, updateUser, deleteUser } from '../../utils/api';
 import { useEffect, useState } from 'react';
 import { datas } from '../../utils/data'
 
@@ -24,8 +24,8 @@ export type User = {
 }
 
 export const App = () => {
-  const [data, setData] = useState<User[]>(datas);
-  // useEffect(() => { getAllUsers().then((response) => { setData(response); }).catch((err) => { console.log(err); }); }, []);
+  const [data, setData] = useState<User[]>([]);
+  useEffect(() => { getAllUsers().then((response) => { setData(response); }).catch((err) => { console.log(err); }); }, []);
 
   const handleUpdateUser = (index: number, updatedUser: User) => {
     const updatedData = [...data];
@@ -37,12 +37,23 @@ export const App = () => {
     });
   };
 
+  const handleDeleteUser = (index: number, updatedUser: User) => {
+    const updatedData = [...data];
+    updatedData[index] = updatedUser;
+    deleteUser({ id: updatedUser.id }).then(() => {
+      setData(updatedData);
+      getAllUsers().then((response) => { setData(response); }).catch((err) => { console.log(err); });
+    }).catch((err) => {
+      console.log(err);
+    });
+  };
+
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
         <Grid minH="100vh" p={3}>
           <Navbar />
-          <TableComponent users={data} onUpdateUser={handleUpdateUser} />
+          <TableComponent users={data} onUpdateUser={handleUpdateUser} onDeleteUser={handleDeleteUser} />
         </Grid>
       </Box>
     </ChakraProvider>)
