@@ -7,6 +7,12 @@ import {
 import { DeleteIcon, EditIcon, CloseIcon, CheckIcon } from '@chakra-ui/icons';
 import { FC, useState } from 'react';
 import { User } from '../app/App';
+import { DateInputComponent } from '../date-input/date-input.component';
+import { NumberInputComponent } from '../number-input/number-input.component';
+import { TextInputComponent } from '../text-input/text-input.component';
+import { SelectInputComponent } from '../select-input/select-input.component';
+import { TableUnitComponent } from '../table-unit/table-unit.component';
+import './table-row.component.css';
 import { updateUser } from '../../utils/api';
 
 export type TableRowComponentProps = {
@@ -38,93 +44,33 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({ user, onSave }) 
     setEditMode(false);
   };
 
-  const parseDate = (date: string) => new Date(Date.parse(date))
-  const parseDateString = (date: any) => date.toISOString().slice(0, 10);
-  
-
   return (
     <Tr>
-      {editMode ? <Td>
-        <input
-          onKeyPress={(event) => {
-            if (!/[0-9]/.test(event.key)) {
-              event.preventDefault();
-            }
-          }}
-          onChange={handleChange}
-          name='userId'
-          maxLength={5}
-          minLength={5}
-          placeholder='userId'
-          value={updatedUser.userId}
-          style={{maxWidth: '130px'}}
-        />
-      </Td> : <Td>
-        {user.userId}
-      </Td>}
-      {editMode ? <Td><input
-        value={updatedUser.firstName}
-        onChange={handleChange}
-        placeholder='firstName'
-        name='firstName'
-        style={{maxWidth: '130px', border: '2px solid blue', borderRadius: '5px', backgroundColor: 'transparent', padding: '4px'}}
-      /></Td> : <Td>
-        {user.firstName}
-      </Td>}
-      {editMode ? <Td><input
-        value={updatedUser.lastName}
-        onChange={handleChange}
-        placeholder='lastName'
-        name='lastName'
-        style={{maxWidth: '130px'}}
-      /></Td> : <Td>
-        {user.lastName}
-      </Td>}
-      {editMode ? <Td><input
-        value={updatedUser.birthDay}
-        onChange={handleChange}
-        type='date'
-        min="1900-01-01" max="2100-12-31"
-        name='birthDay'
-      /></Td> : <Td>
-        {user.birthDay}
-      </Td>}
-      {editMode ? <Td>
-        <select placeholder='Seleziona azienda'
-          value={updatedUser.company}
-          onChange={handleChange}
-          name='company'
-        >
-          <option>Fabrikam</option>
-          <option>FabrikStore</option>
-          <option>FabrikDistribution</option>
-        </select>
-      </Td> : <Td>
-        {user.company}
-      </Td>}
-      {editMode ? <Td><input
-        value={updatedUser.startDate}
-        onChange={handleChange}
-        type='date'
-        min="1900-01-01" max="2100-12-31"
-        name='startDate'
-      /></Td> : <Td>
-        {user.startDate}
-      </Td>}
-      {editMode ? <Td><input
-        value={updatedUser.endDate}
-        onChange={handleChange}
-        type='date'
-        min="1900-01-01" max="2100-12-31"
-        name='endDate'
-      /></Td> : <Td>
-        {user.endDate}
-      </Td>}
+      {editMode ?
+        <>
+          <NumberInputComponent inputValue={updatedUser.userId} name='userId' handleChange={handleChange} />
+          <TextInputComponent inputValue={updatedUser.firstName} name='firstName' handleChange={handleChange} />
+          <TextInputComponent inputValue={updatedUser.lastName} name='lastName' handleChange={handleChange} />
+          <DateInputComponent inputValue={updatedUser.birthDay} name='birthDay' handleChange={handleChange} />
+          <SelectInputComponent inputValue={updatedUser.company} name='company' handleChange={handleChange} />
+          <DateInputComponent inputValue={updatedUser.startDate} name='startDate' handleChange={handleChange} />
+          <DateInputComponent inputValue={updatedUser.endDate} name='endDate' handleChange={handleChange} />
+        </>
+        :
+        <>
+          <TableUnitComponent inputValue={user.userId} />
+          <TableUnitComponent inputValue={user.firstName} />
+          <TableUnitComponent inputValue={user.lastName} />
+          <TableUnitComponent inputValue={user.birthDay} />
+          <TableUnitComponent inputValue={user.company} />
+          <TableUnitComponent inputValue={user.startDate} />
+          <TableUnitComponent inputValue={user.endDate} />
+        </>}
       <Td>
         <ButtonGroup size='sm' isAttached variant='outline'>
           {editMode && <IconButton aria-label="Save user" icon={<CheckIcon />} onClick={handleSave} />}
-          {!editMode && <IconButton aria-label="Update user" icon={<EditIcon />} onClick={handleEdit} />}
           {editMode && <IconButton aria-label="Close edit mode" icon={<CloseIcon />} onClick={handleCancel} />}
+          {!editMode && <IconButton aria-label="Update user" icon={<EditIcon />} onClick={handleEdit} />}
           {!editMode && <IconButton aria-label="Remove user" icon={<DeleteIcon />} />}
         </ButtonGroup>
       </Td>
