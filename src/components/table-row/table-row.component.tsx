@@ -12,6 +12,7 @@ import { NumberInputComponent } from '../number-input/number-input.component';
 import { TextInputComponent } from '../text-input/text-input.component';
 import { SelectInputComponent } from '../select-input/select-input.component';
 import { TableUnitComponent } from '../table-unit/table-unit.component';
+import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 import './table-row.style.css';
 
 export type TableRowComponentProps = {
@@ -45,6 +46,10 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({ user, onSave, on
   const handleDelete = () => {
     onDelete(updatedUser)
     setEditMode(false);
+  }
+
+  const handleDeleteConfirmation = () => {
+    handleDelete()
   }
 
   return (
@@ -88,7 +93,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({ user, onSave, on
           {editMode && <IconButton aria-label="Save user" icon={<CheckIcon />} onClick={handleSave} />}
           {editMode && <IconButton aria-label="Close edit mode" icon={<CloseIcon />} onClick={handleClose} />}
           {!editMode && <IconButton aria-label="Update user" icon={<EditIcon />} onClick={handleEdit} />}
-          {!editMode && <IconButton aria-label="Remove user" icon={<DeleteIcon />} onClick={handleDelete} />}
+          {!editMode && <ConfirmationModalComponent handleDeleteConfirmation={handleDeleteConfirmation} />}
         </ButtonGroup>
       </Td>
     </Tr>

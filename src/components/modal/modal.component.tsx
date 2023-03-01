@@ -35,6 +35,7 @@ export const ModalComponent: FC<ModalComponentProps> = ({ onCreate }) => {
 
     const handleCreate = () => {
         onCreate(createdUser)
+        onClose()
     }
 
     return (
