@@ -67,7 +67,7 @@ export const updateUser = ({
   city,
   province,
   userId,
-  id
+  id,
 }) => {
   return fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',

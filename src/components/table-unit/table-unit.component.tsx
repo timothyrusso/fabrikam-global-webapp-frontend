@@ -1,15 +1,12 @@
-import { FC } from "react"
-import { Td } from "@chakra-ui/react"
+import { FC } from 'react';
+import { Td } from '@chakra-ui/react';
 
 export type TableUnitComponentProps = {
-    inputValue: string | number;
-}
+  inputValue: string | number;
+};
 
-export const TableUnitComponent: FC<TableUnitComponentProps> = ({ inputValue }) => {
-
-    return (
-        <Td>
-            {inputValue}
-        </Td>
-    )
-}
+export const TableUnitComponent: FC<TableUnitComponentProps> = ({
+  inputValue,
+}) => {
+  return <Td>{inputValue}</Td>;
+};

@@ -1,4 +1,12 @@
-import { Table, Thead, Tbody, Tr, Th, TableContainer, Stack } from '@chakra-ui/react';
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  TableContainer,
+  Stack,
+} from '@chakra-ui/react';
 import { TableRowComponent } from '../table-row/table-row.component';
 import { ModalComponent } from '../modal/modal.component';
 import { User } from '../../utils/genericTypes';
@@ -11,8 +19,12 @@ interface TableComponentProps extends React.HTMLAttributes<HTMLElement> {
   onCreateUser: (createdUser: User) => void;
 }
 
-export const TableComponent: FC<TableComponentProps> = ({ users, onUpdateUser, onDeleteUser, onCreateUser }) => {
-
+export const TableComponent: FC<TableComponentProps> = ({
+  users,
+  onUpdateUser,
+  onDeleteUser,
+  onCreateUser,
+}) => {
   const handleChange = (index: number, updatedUser: User) => {
     const updatedData = [...users];
     updatedData[index] = updatedUser;
@@ -30,10 +42,11 @@ export const TableComponent: FC<TableComponentProps> = ({ users, onUpdateUser, o
   };
 
   return (
-
     <TableContainer marginTop={3} marginLeft={5} marginRight={5}>
-      <Stack direction='row' align='center' marginBottom={5}>
-        <ModalComponent onCreate={(createdUser: User) => handleCreate(createdUser)} />
+      <Stack direction="row" align="center" marginBottom={5}>
+        <ModalComponent
+          onCreate={(createdUser: User) => handleCreate(createdUser)}
+        />
       </Stack>
       <Table variant="unstyled" border="2px" borderColor="gray.200">
         <Thead>
@@ -54,7 +67,9 @@ export const TableComponent: FC<TableComponentProps> = ({ users, onUpdateUser, o
               <TableRowComponent
                 key={user.id.toString()}
                 onSave={(updatedUser: User) => handleChange(index, updatedUser)}
-                onDelete={(updatedUser: User) => handleDelete(index, updatedUser)}
+                onDelete={(updatedUser: User) =>
+                  handleDelete(index, updatedUser)
+                }
                 user={user}
               />
             );

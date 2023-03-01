@@ -158,5 +158,5 @@ export const sampleData = [
     userId: 22999,
     createdAt: '2023-02-26T19:10:27.489Z',
     updatedAt: '2023-02-26T19:10:27.489Z',
-  }
+  },
 ];

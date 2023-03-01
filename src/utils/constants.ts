@@ -1,4 +1,5 @@
-export const BASE_URL = "https://fabrikam-global-webapp-production.up.railway.app";
+export const BASE_URL =
+  'https://fabrikam-global-webapp-production.up.railway.app';
 
 export const BAD_REQUEST = 400;
 
