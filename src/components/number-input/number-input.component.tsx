@@ -1,11 +1,5 @@
 import { FC } from "react";
-
-export type NumberInputComponentProps = {
-    inputValue?: number;
-    name: string;
-    handleChange: any;
-    classStyle?: string;
-}
+import { NumberInputComponentProps } from "../../utils/genericTypes";
 
 export const NumberInputComponent: FC<NumberInputComponentProps> = ({ inputValue, name, handleChange, classStyle }) => {
     return (

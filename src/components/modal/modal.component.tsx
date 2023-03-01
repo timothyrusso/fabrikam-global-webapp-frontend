@@ -1,30 +1,31 @@
 import { useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, ModalFooter } from "@chakra-ui/react"
-import { useRef, FC, useState } from "react"
+import { useRef, FC, useState, ChangeEvent } from "react"
 import { DateInputComponent } from "../date-input/date-input.component";
 import { NumberInputComponent } from "../number-input/number-input.component";
 import { SelectInputComponent } from "../select-input/select-input.component";
 import { TextInputComponent } from "../text-input/text-input.component";
+import { User } from "../../utils/genericTypes";
 import './modal.style.css';
 
 export type ModalComponentProps = {
-    onCreate: any;
+    onCreate: (createdUser: User) => void;
 }
 
 const initialObject = {
-    "addressOne": "Indirizzo 1",
-    "addressTwo": "Indirizzo 2",
-    "city": "Citta'",
-    "province": "Provincia"
-}
+    addressOne: "Indirizzo 1",
+    addressTwo: "Indirizzo 2",
+    city: "Citta'",
+    province: "Provincia",
+} as User;
 
 export const ModalComponent: FC<ModalComponentProps> = ({ onCreate }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const [createdUser, setCreatedUser] = useState(initialObject)
+    const [createdUser, setCreatedUser] = useState<User>(initialObject)
 
     const initialRef = useRef(null)
     const finalRef = useRef(null)
 
-    const handleChange = (event: any) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
         const { name, value } = event.target;
         if (name === 'userId') {
             setCreatedUser((createdUser) => ({ ...createdUser, [name]: parseInt(value) }));

@@ -4,9 +4,9 @@ import {
   IconButton,
   ButtonGroup,
 } from '@chakra-ui/react';
-import { DeleteIcon, EditIcon, CloseIcon, CheckIcon } from '@chakra-ui/icons';
-import { FC, useState } from 'react';
-import { User } from '../app/App';
+import { EditIcon, CloseIcon, CheckIcon } from '@chakra-ui/icons';
+import { FC, useState, ChangeEvent } from 'react';
+import { User } from '../../utils/genericTypes';
 import { DateInputComponent } from '../date-input/date-input.component';
 import { NumberInputComponent } from '../number-input/number-input.component';
 import { TextInputComponent } from '../text-input/text-input.component';
@@ -16,8 +16,8 @@ import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-m
 import './table-row.style.css';
 
 export type TableRowComponentProps = {
-  onSave: any;
-  onDelete: any;
+  onSave: (updatedUser: User) => void;
+  onDelete: (updatedUser: User) => void;
   user: User
 };
 
@@ -25,7 +25,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({ user, onSave, on
   const [editMode, setEditMode] = useState(false);
   const [updatedUser, setUpdatedUser] = useState(user);
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
     setUpdatedUser((updatedUser) => ({ ...updatedUser, [name]: value }));
   }

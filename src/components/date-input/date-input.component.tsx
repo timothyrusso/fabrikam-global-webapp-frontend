@@ -1,13 +1,7 @@
-import { FC } from "react"
+import { FC } from "react";
+import { GenericInputComponentProps } from "../../utils/genericTypes";
 
-export type DateInputComponentProps = {
-    inputValue?: string;
-    name: string;
-    handleChange: any;
-    classStyle?: string;
-}
-
-export const DateInputComponent: FC<DateInputComponentProps> = ({ inputValue, name, handleChange, classStyle }) => {
+export const DateInputComponent: FC<GenericInputComponentProps> = ({ inputValue, name, handleChange, classStyle }) => {
 
     return (
             <input

@@ -1,7 +1,7 @@
 import { Table, Thead, Tbody, Tr, Th, TableContainer, Stack } from '@chakra-ui/react';
 import { TableRowComponent } from '../table-row/table-row.component';
 import { ModalComponent } from '../modal/modal.component';
-import { User } from '../app/App';
+import { User } from '../../utils/genericTypes';
 import { FC } from 'react';
 
 interface TableComponentProps extends React.HTMLAttributes<HTMLElement> {

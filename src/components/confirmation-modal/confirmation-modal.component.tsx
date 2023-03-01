@@ -3,7 +3,7 @@ import { DeleteIcon } from "@chakra-ui/icons"
 import { FC } from "react";
 
 export type ConfirmationModalComponentProps = {
-    handleDeleteConfirmation: any;
+    handleDeleteConfirmation: () => void;
 }
 
 export const ConfirmationModalComponent: FC<ConfirmationModalComponentProps> = ({ handleDeleteConfirmation }) => {

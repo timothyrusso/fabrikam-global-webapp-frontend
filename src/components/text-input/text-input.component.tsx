@@ -1,13 +1,7 @@
 import { FC } from "react"
+import { GenericInputComponentProps } from "../../utils/genericTypes";
 
-export type TextInputComponentProps = {
-    inputValue?: string;
-    name: string;
-    handleChange: any;
-    classStyle?: string;
-}
-
-export const TextInputComponent: FC<TextInputComponentProps> = ({ inputValue, name, handleChange, classStyle }) => {
+export const TextInputComponent: FC<GenericInputComponentProps> = ({ inputValue, name, handleChange, classStyle }) => {
     return (
         <input
             value={inputValue}

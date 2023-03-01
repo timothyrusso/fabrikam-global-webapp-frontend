@@ -1,11 +1,5 @@
 import { FC } from "react"
-
-export type SelectInputComponentProps = {
-    inputValue?: string;
-    name: string;
-    handleChange: any;
-    classStyle?: string;
-}
+import { SelectInputComponentProps } from "../../utils/genericTypes";
 
 export const SelectInputComponent: FC<SelectInputComponentProps> = ({ inputValue, name, handleChange, classStyle }) => {
     return (

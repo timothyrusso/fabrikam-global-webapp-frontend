@@ -4,28 +4,12 @@ import { TableComponent } from '../table/table.component';
 import { Navbar } from '../navbar/navbar.component';
 import { getAllUsers, updateUser, deleteUser, createUser } from '../../utils/api';
 import { useEffect, useState } from 'react';
-import { datas } from '../../utils/data'
-
-export type User = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  birthDay: string;
-  company: string;
-  startDate: string;
-  endDate: string;
-  addressOne: string;
-  addressTwo: string;
-  city: string;
-  province: string;
-  userId: number;
-  createdAt: string;
-  updatedAt: string;
-}
+import { sampleData } from '../../utils/data'
+import { User } from '../../utils/genericTypes';
 
 export const App = () => {
-  const [data, setData] = useState<User[]>([]);
-  useEffect(() => { getAllUsers().then((response) => { setData(response); }).catch((err) => { console.log(err); }); }, []);
+  const [data, setData] = useState<User[]>(sampleData);
+  // useEffect(() => { getAllUsers().then((response) => { setData(response); }).catch((err) => { console.log(err); }); }, []);
 
   const handleUpdateUser = (index: number, updatedUser: User) => {
     const updatedData = [...data];
