@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ChakraProvider, Box, Grid, theme } from '@chakra-ui/react';
 import { TableComponent } from '../table/table.component';
 import { Navbar } from '../navbar/navbar.component';
-import { getAllUsers } from '../../utils/api';
+import { getAllUsers, updateUser } from '../../utils/api';
 import { useEffect, useState } from 'react';
 import { datas } from '../../utils/data'
 
@@ -30,8 +30,11 @@ export const App = () => {
   const handleUpdateUser = (index: number, updatedUser: User) => {
     const updatedData = [...data];
     updatedData[index] = updatedUser;
-    setData(updatedData);
-    // API call to update the data
+    updateUser({ ...updatedUser, id: updatedUser.id }).then(() => {
+      setData(updatedData);
+    }).catch((err) => {
+      console.log(err);
+    });
   };
 
   return (

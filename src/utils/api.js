@@ -68,9 +68,10 @@ export const updateUser = ({
   city,
   province,
   userId,
+  id
 }) => {
-  return fetch(`${BASE_URL}`, {
-    method: 'PATCH',
+  return fetch(`${BASE_URL}/${id}`, {
+    method: 'PUT',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
