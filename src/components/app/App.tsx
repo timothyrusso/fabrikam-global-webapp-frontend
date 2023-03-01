@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ChakraProvider, Box, Grid, theme } from '@chakra-ui/react';
 import { TableComponent } from '../table/table.component';
 import { Navbar } from '../navbar/navbar.component';
-import { getAllUsers, updateUser, deleteUser } from '../../utils/api';
+import { getAllUsers, updateUser, deleteUser, createUser } from '../../utils/api';
 import { useEffect, useState } from 'react';
 import { datas } from '../../utils/data'
 
@@ -48,12 +48,20 @@ export const App = () => {
     });
   };
 
+  const handleCreateUser = (createdUser: User) => {
+    createUser({ ...createdUser }).then(() => {
+      getAllUsers().then((response) => { setData(response); }).catch((err) => { console.log(err); });
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
         <Grid minH="100vh" p={3}>
           <Navbar />
-          <TableComponent users={data} onUpdateUser={handleUpdateUser} onDeleteUser={handleDeleteUser} />
+          <TableComponent users={data} onUpdateUser={handleUpdateUser} onDeleteUser={handleDeleteUser} onCreateUser={handleCreateUser} />
         </Grid>
       </Box>
     </ChakraProvider>)

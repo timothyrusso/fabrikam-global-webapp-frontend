@@ -1,5 +1,6 @@
-import { Table, Thead, Tbody, Tr, Th, TableContainer, Button, Stack } from '@chakra-ui/react';
+import { Table, Thead, Tbody, Tr, Th, TableContainer, Stack } from '@chakra-ui/react';
 import { TableRowComponent } from '../table-row/table-row.component';
+import { ModalComponent } from '../modal/modal.component';
 import { User } from '../app/App';
 import { FC } from 'react';
 
@@ -7,9 +8,10 @@ interface TableComponentProps extends React.HTMLAttributes<HTMLElement> {
   users: User[];
   onUpdateUser: (index: number, updatedUser: User) => void;
   onDeleteUser: (index: number, updatedUser: User) => void;
+  onCreateUser: (createdUser: User) => void;
 }
 
-export const TableComponent: FC<TableComponentProps> = ({ users, onUpdateUser, onDeleteUser }) => {
+export const TableComponent: FC<TableComponentProps> = ({ users, onUpdateUser, onDeleteUser, onCreateUser }) => {
 
   const handleChange = (index: number, updatedUser: User) => {
     const updatedData = [...users];
@@ -23,13 +25,15 @@ export const TableComponent: FC<TableComponentProps> = ({ users, onUpdateUser, o
     onDeleteUser(index, updatedUser);
   };
 
+  const handleCreate = (createdUser: User) => {
+    onCreateUser(createdUser);
+  };
+
   return (
 
     <TableContainer marginTop={3} marginLeft={5} marginRight={5}>
       <Stack direction='row' align='center' marginBottom={5}>
-        <Button colorScheme='green' size='lg' variant='outline'>
-          Aggiungi utente
-        </Button>
+        <ModalComponent onCreate={(createdUser: User) => handleCreate(createdUser)} />
       </Stack>
       <Table variant="unstyled" border="2px" borderColor="gray.200">
         <Thead>
