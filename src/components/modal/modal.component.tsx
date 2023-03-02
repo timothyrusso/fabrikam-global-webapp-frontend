@@ -111,6 +111,7 @@ export const ModalComponent: FC<ModalComponentProps> = ({ onCreate }) => {
                 handleChange={handleChange}
                 name="company"
                 classStyle="modal"
+                inputValue={createdUser.company}
               />
             </FormControl>
             <FormControl mt={4}>
