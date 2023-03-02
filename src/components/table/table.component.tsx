@@ -42,7 +42,7 @@ export const TableComponent: FC<TableComponentProps> = ({
   };
 
   return (
-    <TableContainer marginTop={3} marginLeft={5} marginRight={5}>
+    <TableContainer marginTop={120} marginLeft={5} marginRight={5}>
       <Stack direction="row" align="center" marginBottom={5}>
         <ModalComponent
           onCreate={(createdUser: User) => handleCreate(createdUser)}

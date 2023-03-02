@@ -4,7 +4,7 @@ import { ReactComponent as Logo } from '../../assets/logo.svg';
 
 export const Navbar = () => {
   return (
-    <Flex>
+    <Flex maxHeight={100}>
       <Center w="220px" h="30px" color="green.400" marginLeft={5}>
         <Logo />
       </Center>

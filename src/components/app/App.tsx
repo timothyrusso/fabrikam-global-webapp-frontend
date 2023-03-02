@@ -2,6 +2,7 @@ import * as React from 'react';
 import { ChakraProvider, Box, Grid, theme } from '@chakra-ui/react';
 import { TableComponent } from '../table/table.component';
 import { Navbar } from '../navbar/navbar.component';
+import { UserPageComponent } from '../../routes/user-page/user-page.component';
 import {
   getAllUsers,
   updateUser,
@@ -11,6 +12,7 @@ import {
 import { useEffect, useState } from 'react';
 import { sampleData } from '../../utils/data';
 import { User } from '../../utils/genericTypes';
+import { Routes, Route } from 'react-router-dom';
 
 export const App = () => {
   const [data, setData] = useState<User[]>(sampleData);
@@ -66,14 +68,17 @@ export const App = () => {
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
+        <Grid minH="40vh" p={3}>
           <Navbar />
-          <TableComponent
-            users={data}
-            onUpdateUser={handleUpdateUser}
-            onDeleteUser={handleDeleteUser}
-            onCreateUser={handleCreateUser}
-          />
+          <Routes>
+            <Route path="/" element={<TableComponent
+              users={data}
+              onUpdateUser={handleUpdateUser}
+              onDeleteUser={handleDeleteUser}
+              onCreateUser={handleCreateUser}
+            />} />
+            <Route path="/detail-page" element={<UserPageComponent />} />
+          </Routes>
         </Grid>
       </Box>
     </ChakraProvider>
