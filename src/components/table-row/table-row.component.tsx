@@ -1,4 +1,4 @@
-import { Tr, Td, IconButton, ButtonGroup } from '@chakra-ui/react';
+import { Tr, Td, IconButton, ButtonGroup, Box } from '@chakra-ui/react';
 import { EditIcon, CloseIcon, CheckIcon } from '@chakra-ui/icons';
 import { FC, useState, ChangeEvent } from 'react';
 import { User } from '../../utils/genericTypes';
@@ -8,6 +8,7 @@ import { TextInputComponent } from '../text-input/text-input.component';
 import { SelectInputComponent } from '../select-input/select-input.component';
 import { TableUnitComponent } from '../table-unit/table-unit.component';
 import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
+import { useNavigate } from 'react-router-dom';
 import './table-row.style.css';
 
 export type TableRowComponentProps = {
@@ -23,6 +24,11 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
 }) => {
   const [editMode, setEditMode] = useState(false);
   const [updatedUser, setUpdatedUser] = useState(user);
+  const navigate = useNavigate();
+
+  const handleTableRowClick = (user: User) => {
+    navigate(`/detail-page/${user.id}`, { state: { user } });
+  };
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
@@ -46,52 +52,58 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
   };
 
   return (
-    <Tr>
+    <Tr _hover={!editMode ? {
+      background: "cyan",
+      color: "black",
+    } : {
+      background: "transparent",
+      color: "blue.500",
+    }} cursor='pointer'>
       {editMode ? (
         <>
-          <Td w={342}>
+          <Td >
             <NumberInputComponent
               inputValue={updatedUser.userId}
               name="userId"
               handleChange={handleChange}
             />
           </Td>
-          <Td w={220}>
+          <Td >
             <TextInputComponent
               inputValue={updatedUser.firstName}
               name="firstName"
               handleChange={handleChange}
             />
           </Td>
-          <Td w={220}>
+          <Td >
             <TextInputComponent
               inputValue={updatedUser.lastName}
               name="lastName"
               handleChange={handleChange}
             />
           </Td>
-          <Td w={369}>
+          <Td >
             <DateInputComponent
               inputValue={updatedUser.birthDay}
               name="birthDay"
               handleChange={handleChange}
             />
           </Td>
-          <Td w={335}>
+          <Td >
             <SelectInputComponent
               inputValue={updatedUser.company}
               name="company"
               handleChange={handleChange}
             />
           </Td>
-          <Td w={366}>
+          <Td >
             <DateInputComponent
               inputValue={updatedUser.startDate}
               name="startDate"
               handleChange={handleChange}
             />
           </Td>
-          <Td w={369}>
+          <Td >
             <DateInputComponent
               inputValue={updatedUser.endDate}
               name="endDate"
@@ -101,41 +113,41 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
         </>
       ) : (
         <>
-          <TableUnitComponent inputValue={user.userId} />
-          <TableUnitComponent inputValue={user.firstName} />
-          <TableUnitComponent inputValue={user.lastName} />
-          <TableUnitComponent inputValue={user.birthDay} />
-          <TableUnitComponent inputValue={user.company} />
-          <TableUnitComponent inputValue={user.startDate} />
-          <TableUnitComponent inputValue={user.endDate} />
+          <TableUnitComponent inputValue={user.userId} handleTableRowClick={() => handleTableRowClick(user)} />
+          <TableUnitComponent inputValue={user.firstName} handleTableRowClick={() => handleTableRowClick(user)} />
+          <TableUnitComponent inputValue={user.lastName} handleTableRowClick={() => handleTableRowClick(user)} />
+          <TableUnitComponent inputValue={user.birthDay} handleTableRowClick={() => handleTableRowClick(user)} />
+          <TableUnitComponent inputValue={user.company} handleTableRowClick={() => handleTableRowClick(user)} />
+          <TableUnitComponent inputValue={user.startDate} handleTableRowClick={() => handleTableRowClick(user)} />
+          <TableUnitComponent inputValue={user.endDate} handleTableRowClick={() => handleTableRowClick(user)} />
         </>
       )}
       <Td>
         <ButtonGroup size="sm" isAttached variant="outline">
           {editMode && (
             <>
-            <IconButton
-              aria-label="Save user"
-              icon={<CheckIcon />}
-              onClick={handleSave}
-            />
-            <IconButton
-              aria-label="Close edit mode"
-              icon={<CloseIcon />}
-              onClick={() => setEditMode(false)}
-            />
+              <IconButton
+                aria-label="Save user"
+                icon={<CheckIcon />}
+                onClick={handleSave}
+              />
+              <IconButton
+                aria-label="Close edit mode"
+                icon={<CloseIcon />}
+                onClick={() => setEditMode(false)}
+              />
             </>
           )}
           {!editMode && (
             <>
-            <IconButton
-              aria-label="Update user"
-              icon={<EditIcon />}
-              onClick={() => setEditMode(true)}
-            />
-            <ConfirmationModalComponent
-              handleDeleteConfirmation={handleDeleteConfirmation}
-            />
+              <IconButton
+                aria-label="Update user"
+                icon={<EditIcon />}
+                onClick={() => setEditMode(true)}
+              />
+              <ConfirmationModalComponent
+                handleDeleteConfirmation={handleDeleteConfirmation}
+              />
             </>
           )}
         </ButtonGroup>

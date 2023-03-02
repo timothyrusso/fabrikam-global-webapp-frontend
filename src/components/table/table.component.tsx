@@ -6,6 +6,7 @@ import {
   Th,
   TableContainer,
   Stack,
+  Flex
 } from '@chakra-ui/react';
 import { TableRowComponent } from '../table-row/table-row.component';
 import { ModalComponent } from '../modal/modal.component';

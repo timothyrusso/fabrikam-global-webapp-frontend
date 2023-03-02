@@ -4,29 +4,34 @@ import { TextInputComponent } from "../../components/text-input/text-input.compo
 import { SelectInputComponent } from "../../components/select-input/select-input.component"
 import { DateInputComponent } from "../../components/date-input/date-input.component"
 import { FC, useState, ChangeEvent } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { formatDateString } from "../../utils/helpers"
 
 export const UserPageComponent = () => {
+    const location = useLocation();
+    const user = location.state?.user;
+    const navigate = useNavigate()
 
     return (
         <Center marginTop={20}>
-            <Box w='85%' borderWidth='2px' borderRadius='lg' overflow='hidden'>
-                <Avatar marginTop={10} name='Oshigaki Kisame' />
-                <Stack spacing={3} marginTop={5} marginBottom={5}>
-                    <Text fontSize='4xl'>Timothy Russo</Text>
-                    <Text fontSize='2xl'>Data di nascita: </Text>
-                    <Text fontSize='2xl'>Societa': </Text>
-                    <Text fontSize='2xl'>Data di inizio: </Text>
-                    <Text fontSize='2xl'>Data di fine: </Text>
-                    <Text fontSize='2xl'>Indirizzo 1: </Text>
-                    <Text fontSize='2xl'>Indirizzo 2: </Text>
-                    <Text fontSize='2xl'>Citta': </Text>
-                    <Text fontSize='2xl'>Provincia: </Text>
-                    <Text fontSize='2xl'>Data di creazione: </Text>
-                    <Text fontSize='2xl'>userId: </Text>
+            <Box maxWidth='500px' borderWidth='2px' borderRadius='lg' overflow='hidden'>
+                <Avatar marginTop={10} name={`${user.firstName} ${user.lastName}`} />
+                <Stack spacing={3} justifyContent='center' p={10}>
+                    <Text fontSize='4xl'>{user.firstName} {user.lastName}</Text>
+                    <Text fontSize='2xl'>Data di nascita: {user.birthDay}</Text>
+                    <Text fontSize='2xl'>Societa': {user.company}</Text>
+                    <Text fontSize='2xl'>Data di inizio: {user.startDate}</Text>
+                    <Text fontSize='2xl'>Data di fine: {user.endDate}</Text>
+                    <Text fontSize='2xl'>Indirizzo 1: {user.addressOne}</Text>
+                    <Text fontSize='2xl'>Indirizzo 2: {user.addressTwo}</Text>
+                    <Text fontSize='2xl'>Citta': {user.city}</Text>
+                    <Text fontSize='2xl'>Provincia: {user.province}</Text>
+                    <Text fontSize='2xl'>Data di creazione: {formatDateString(user.createdAt)}</Text>
+                    <Text fontSize='2xl'>userId: {user.userId}</Text>
                 </Stack>
                 <Stack direction='row' justifyContent='center' marginBottom={5} spacing={7}>
                     <Button colorScheme='blue'>Modifica</Button>
-                    <Button>Torna indietro</Button>
+                    <Button onClick={() => navigate('/')}>Torna indietro</Button>
                 </Stack>
             </Box>
         </Center>

@@ -77,7 +77,7 @@ export const App = () => {
               onDeleteUser={handleDeleteUser}
               onCreateUser={handleCreateUser}
             />} />
-            <Route path="/detail-page" element={<UserPageComponent />} />
+            <Route path="/detail-page/:id" element={<UserPageComponent />} />
           </Routes>
         </Grid>
       </Box>
