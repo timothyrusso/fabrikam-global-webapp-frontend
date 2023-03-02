@@ -31,14 +31,6 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
     setUpdatedUser((updatedUser) => ({ ...updatedUser, [name]: value }));
   };
 
-  const handleEdit = () => {
-    setEditMode(true);
-  };
-
-  const handleClose = () => {
-    setEditMode(false);
-  };
-
   const handleSave = () => {
     onSave(updatedUser);
     setEditMode(false);
@@ -121,30 +113,30 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
       <Td>
         <ButtonGroup size="sm" isAttached variant="outline">
           {editMode && (
+            <>
             <IconButton
               aria-label="Save user"
               icon={<CheckIcon />}
               onClick={handleSave}
             />
-          )}
-          {editMode && (
             <IconButton
               aria-label="Close edit mode"
               icon={<CloseIcon />}
-              onClick={handleClose}
+              onClick={() => setEditMode(false)}
             />
+            </>
           )}
           {!editMode && (
+            <>
             <IconButton
               aria-label="Update user"
               icon={<EditIcon />}
-              onClick={handleEdit}
+              onClick={() => setEditMode(true)}
             />
-          )}
-          {!editMode && (
             <ConfirmationModalComponent
               handleDeleteConfirmation={handleDeleteConfirmation}
             />
+            </>
           )}
         </ButtonGroup>
       </Td>
