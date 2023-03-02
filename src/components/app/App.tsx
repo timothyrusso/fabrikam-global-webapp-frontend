@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChakraProvider, Box, Grid, theme } from '@chakra-ui/react';
+import { ChakraProvider, Box, Grid, theme, useToast } from '@chakra-ui/react';
 import { TableComponent } from '../table/table.component';
 import { Navbar } from '../navbar/navbar.component';
 import { UserPageComponent } from '../../routes/user-page/user-page.component';
@@ -15,17 +15,34 @@ import { User } from '../../utils/genericTypes';
 import { Routes, Route } from 'react-router-dom';
 
 export const App = () => {
-  const [data, setData] = useState<User[]>(sampleData);
-  // useEffect(() => { getAllUsers().then((response) => { setData(response); }).catch((err) => { console.log(err); }); }, []);
+  const [data, setData] = useState<User[]>([]);
+  useEffect(() => { getAllUsers().then((response) => { setData(response); }).catch((err) => { console.log(err); }); }, []);
+
+  const toast = useToast()
 
   const handleUpdateUser = (index: number, updatedUser: User) => {
     const updatedData = [...data];
     updatedData[index] = updatedUser;
     updateUser({ ...updatedUser, id: updatedUser.id })
       .then(() => {
+        toast({
+          position: 'top',
+          title: 'Informazioni aggiornate.',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        });
         setData(updatedData);
       })
       .catch((err) => {
+        toast({
+          position: 'top',
+          title: `Si e' verificato un errore.`,
+          description: err.message,
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        });
         console.log(err);
       });
   };
@@ -36,6 +53,13 @@ export const App = () => {
     deleteUser({ id: updatedUser.id })
       .then(() => {
         setData(updatedData);
+        toast({
+          position: 'top',
+          title: 'Risorsa eliminata.',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        });
         getAllUsers()
           .then((response) => {
             setData(response);
@@ -45,6 +69,14 @@ export const App = () => {
           });
       })
       .catch((err) => {
+        toast({
+          position: 'top',
+          title: `Si e' verificato un errore.`,
+          description: err.message,
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        });
         console.log(err);
       });
   };
@@ -52,6 +84,13 @@ export const App = () => {
   const handleCreateUser = (createdUser: User) => {
     createUser({ ...createdUser })
       .then(() => {
+        toast({
+          position: 'top',
+          title: 'Nuova risorsa creata.',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        });
         getAllUsers()
           .then((response) => {
             setData(response);
@@ -61,6 +100,14 @@ export const App = () => {
           });
       })
       .catch((err) => {
+        toast({
+          position: 'top',
+          title: `Si e' verificato un errore.`,
+          description: err.message,
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        });
         console.log(err);
       });
   };
@@ -77,7 +124,7 @@ export const App = () => {
               onDeleteUser={handleDeleteUser}
               onCreateUser={handleCreateUser}
             />} />
-            <Route path="/detail-page/:id" element={<UserPageComponent />} />
+            <Route path="/detail-page/:id" element={<UserPageComponent onUpdateUser={handleUpdateUser} users={data} />} />
           </Routes>
         </Grid>
       </Box>

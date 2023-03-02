@@ -1,4 +1,4 @@
-import { Tr, Td, IconButton, ButtonGroup, Box } from '@chakra-ui/react';
+import { Tr, Td, IconButton, ButtonGroup } from '@chakra-ui/react';
 import { EditIcon, CloseIcon, CheckIcon } from '@chakra-ui/icons';
 import { FC, useState, ChangeEvent } from 'react';
 import { User } from '../../utils/genericTypes';
@@ -113,13 +113,13 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
         </>
       ) : (
         <>
-          <TableUnitComponent inputValue={user.userId} handleTableRowClick={() => handleTableRowClick(user)} />
-          <TableUnitComponent inputValue={user.firstName} handleTableRowClick={() => handleTableRowClick(user)} />
-          <TableUnitComponent inputValue={user.lastName} handleTableRowClick={() => handleTableRowClick(user)} />
-          <TableUnitComponent inputValue={user.birthDay} handleTableRowClick={() => handleTableRowClick(user)} />
-          <TableUnitComponent inputValue={user.company} handleTableRowClick={() => handleTableRowClick(user)} />
-          <TableUnitComponent inputValue={user.startDate} handleTableRowClick={() => handleTableRowClick(user)} />
-          <TableUnitComponent inputValue={user.endDate} handleTableRowClick={() => handleTableRowClick(user)} />
+          <TableUnitComponent inputValue={updatedUser.userId} handleTableRowClick={() => handleTableRowClick(user)} />
+          <TableUnitComponent inputValue={updatedUser.firstName} handleTableRowClick={() => handleTableRowClick(user)} />
+          <TableUnitComponent inputValue={updatedUser.lastName} handleTableRowClick={() => handleTableRowClick(user)} />
+          <TableUnitComponent inputValue={updatedUser.birthDay} handleTableRowClick={() => handleTableRowClick(user)} />
+          <TableUnitComponent inputValue={updatedUser.company} handleTableRowClick={() => handleTableRowClick(user)} />
+          <TableUnitComponent inputValue={updatedUser.startDate} handleTableRowClick={() => handleTableRowClick(user)} />
+          <TableUnitComponent inputValue={updatedUser.endDate} handleTableRowClick={() => handleTableRowClick(user)} />
         </>
       )}
       <Td>
