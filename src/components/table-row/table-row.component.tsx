@@ -144,6 +144,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
                 aria-label="Update user"
                 icon={<EditIcon />}
                 onClick={() => setEditMode(true)}
+                _hover={{ color: "black" }}
               />
               <ConfirmationModalComponent
                 handleDeleteConfirmation={handleDeleteConfirmation}

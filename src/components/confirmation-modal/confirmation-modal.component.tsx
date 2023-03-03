@@ -27,6 +27,7 @@ export const ConfirmationModalComponent: FC<
         aria-label="Remove user"
         icon={<DeleteIcon />}
         onClick={onOpen}
+        _hover={{ color: "black" }}
       />
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
