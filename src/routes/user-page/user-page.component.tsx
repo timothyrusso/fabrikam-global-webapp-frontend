@@ -3,7 +3,7 @@ import { NumberInputComponent } from "../../components/number-input/number-input
 import { TextInputComponent } from "../../components/text-input/text-input.component"
 import { SelectInputComponent } from "../../components/select-input/select-input.component"
 import { DateInputComponent } from "../../components/date-input/date-input.component"
-import { FC, useState, ChangeEvent } from 'react';
+import { FC, useState, ChangeEvent, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { formatDateString } from "../../utils/helpers"
 import { User } from "../../utils/genericTypes"
@@ -23,11 +23,16 @@ export const UserPageComponent: FC<UserPageComponentProps> = ({ onUpdateUser, us
 
     const navigate = useNavigate()
 
+    useEffect(() => {
+        setUpdatedUser(user);
+      }, [user]);
+
     const handleChange = (
         event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
     ) => {
         const { name, value } = event.target;
-        setUpdatedUser((updatedUser) => ({ ...updatedUser, [name]: value }));
+            setUpdatedUser((updatedUser) => ({ ...updatedUser, [name]: value }));
+        
     };
 
     const handleSave = () => {

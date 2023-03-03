@@ -49,6 +49,7 @@ export const ModalComponent: FC<ModalComponentProps> = ({ onCreate }) => {
     } else {
       setCreatedUser((createdUser) => ({ ...createdUser, [name]: value }));
     }
+    console.log(createdUser)
   };
 
   const handleCreate = () => {
@@ -105,13 +106,12 @@ export const ModalComponent: FC<ModalComponentProps> = ({ onCreate }) => {
                 classStyle="modal"
               />
             </FormControl>
-            <FormControl mt={4}>
+            <FormControl mt={4} isRequired>
               <FormLabel>Societa'</FormLabel>
               <SelectInputComponent
                 handleChange={handleChange}
                 name="company"
                 classStyle="modal"
-                inputValue={createdUser.company}
               />
             </FormControl>
             <FormControl mt={4}>

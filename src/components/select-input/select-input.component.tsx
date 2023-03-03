@@ -7,6 +7,7 @@ export const SelectInputComponent: FC<SelectInputComponentProps> = ({
   handleChange,
   classStyle,
 }) => {
+
   return (
     <select
       placeholder="Seleziona azienda"
@@ -14,10 +15,11 @@ export const SelectInputComponent: FC<SelectInputComponentProps> = ({
       onChange={handleChange}
       name={name}
       className={`input ${classStyle}`}
-    >
-      <option>FabrikDistribution</option>
-      <option>FabrikStore</option>
-      <option>Fabrikam</option>
+    > 
+      <option>Seleziona una compagnia</option>
+      <option value='FabrikDistribution'>FabrikDistribution</option>
+      <option value='FabrikStore'>FabrikStore</option>
+      <option value='Fabrikam'>Fabrikam</option>
     </select>
   );
 };
