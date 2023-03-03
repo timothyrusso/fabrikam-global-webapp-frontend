@@ -17,7 +17,7 @@ import { NumberInputComponent } from '../number-input/number-input.component';
 import { SelectInputComponent } from '../select-input/select-input.component';
 import { TextInputComponent } from '../text-input/text-input.component';
 import { User } from '../../utils/genericTypes';
-import { initialObject } from '../../utils/constants';
+import { selectDefaultValue } from '../../utils/constants';
 import './modal.style.css';
 
 export type ModalComponentProps = {
@@ -26,7 +26,7 @@ export type ModalComponentProps = {
 
 export const ModalComponent: FC<ModalComponentProps> = ({ onCreate }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [createdUser, setCreatedUser] = useState<User>(initialObject);
+  const [createdUser, setCreatedUser] = useState<User>(selectDefaultValue);
   const [validInput, setValidInput] = useState(false);
 
   const initialRef = useRef(null);
@@ -119,14 +119,6 @@ export const ModalComponent: FC<ModalComponentProps> = ({ onCreate }) => {
               <DateInputComponent
                 handleChange={handleChange}
                 name="startDate"
-                classStyle="modal"
-              />
-            </FormControl>
-            <FormControl mt={4}>
-              <FormLabel>Data di fine</FormLabel>
-              <DateInputComponent
-                handleChange={handleChange}
-                name="endDate"
                 classStyle="modal"
               />
             </FormControl>
