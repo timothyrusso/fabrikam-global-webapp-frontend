@@ -17,18 +17,12 @@ import { NumberInputComponent } from '../number-input/number-input.component';
 import { SelectInputComponent } from '../select-input/select-input.component';
 import { TextInputComponent } from '../text-input/text-input.component';
 import { User } from '../../utils/genericTypes';
+import { initialObject } from '../../utils/constants';
 import './modal.style.css';
 
 export type ModalComponentProps = {
   onCreate: (createdUser: User) => void;
 };
-
-const initialObject = {
-  addressOne: 'Indirizzo 1',
-  addressTwo: 'Indirizzo 2',
-  city: "Citta'",
-  province: 'Provincia',
-} as User;
 
 export const ModalComponent: FC<ModalComponentProps> = ({ onCreate }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -59,9 +53,10 @@ export const ModalComponent: FC<ModalComponentProps> = ({ onCreate }) => {
   };
 
   const handleCancel = () => {
+    setValidInput(false)
     onClose()
   }
-
+ 
   return (
     <>
       <Button onClick={onOpen} colorScheme="green" size="lg" variant="outline">
@@ -111,7 +106,7 @@ export const ModalComponent: FC<ModalComponentProps> = ({ onCreate }) => {
                 classStyle="modal"
               />
             </FormControl>
-            <FormControl mt={4} isRequired>
+            <FormControl mt={4}>
               <FormLabel>Societa'</FormLabel>
               <SelectInputComponent
                 handleChange={handleChange}

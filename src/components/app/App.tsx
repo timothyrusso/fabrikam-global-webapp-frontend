@@ -19,6 +19,8 @@ export const App = () => {
   const [data, setData] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const toast = useToast()
+
   useEffect(() => {
     getAllUsers().then((response) => {
       setData(response)
@@ -34,8 +36,6 @@ export const App = () => {
       console.log(err);
     }).finally(() => setIsLoading(false))
   }, []);
-
-  const toast = useToast()
 
   const handleUpdateUser = (index: number, updatedUser: User) => {
     const updatedData = [...data];
@@ -69,21 +69,14 @@ export const App = () => {
     updatedData[index] = updatedUser;
     deleteUser({ id: updatedUser.id })
       .then(() => {
-        setData(updatedData);
+        setData(updatedData.filter(user => user.id !== updatedUser.id));
         toast({
           position: 'top',
           title: 'Risorsa eliminata.',
           status: 'success',
           duration: 3000,
           isClosable: true,
-        });
-        getAllUsers()
-          .then((response) => {
-            setData(response);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        })
       })
       .catch((err) => {
         toast({
