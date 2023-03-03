@@ -17,12 +17,11 @@ import { Routes, Route } from 'react-router-dom';
 
 export const App = () => {
   const [data, setData] = useState<User[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getAllUsers().then((response) => {
       setData(response)
-      setIsLoading(false);
     }).catch((err) => {
       toast({
         position: 'top',
@@ -33,7 +32,7 @@ export const App = () => {
         isClosable: true,
       });
       console.log(err);
-    });
+    }).finally(() => setIsLoading(false))
   }, []);
 
   const toast = useToast()
