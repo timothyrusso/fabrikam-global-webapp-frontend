@@ -1,2 +1,2 @@
 export const BASE_URL =
-  'https://fabrikam-global-webapp-production.up.railway.app';
+  'https://fabrikam-global-webapp.onrender.com';
