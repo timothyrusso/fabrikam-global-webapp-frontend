@@ -33,6 +33,7 @@ const initialObject = {
 export const ModalComponent: FC<ModalComponentProps> = ({ onCreate }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [createdUser, setCreatedUser] = useState<User>(initialObject);
+  const [validInput, setValidInput] = useState(false);
 
   const initialRef = useRef(null);
   const finalRef = useRef(null);
@@ -49,13 +50,17 @@ export const ModalComponent: FC<ModalComponentProps> = ({ onCreate }) => {
     } else {
       setCreatedUser((createdUser) => ({ ...createdUser, [name]: value }));
     }
-    console.log(createdUser)
+    setValidInput(value.trim() !== '');
   };
 
   const handleCreate = () => {
     onCreate(createdUser);
     onClose();
   };
+
+  const handleCancel = () => {
+    onClose()
+  }
 
   return (
     <>
@@ -132,10 +137,9 @@ export const ModalComponent: FC<ModalComponentProps> = ({ onCreate }) => {
             </FormControl>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={handleCreate} colorScheme="blue" mr={3}>
-              Salva
+            <Button onClick={handleCreate} colorScheme="blue" mr={3} isDisabled={!validInput}>Salva
             </Button>
-            <Button onClick={onClose}>Annulla</Button>
+            <Button onClick={handleCancel}>Annulla</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

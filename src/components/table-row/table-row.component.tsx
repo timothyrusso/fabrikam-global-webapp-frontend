@@ -24,6 +24,8 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
 }) => {
   const [editMode, setEditMode] = useState(false);
   const [updatedUser, setUpdatedUser] = useState(user);
+  const [validInput, setValidInput] = useState(true);
+
   const navigate = useNavigate();
 
   const handleTableRowClick = (user: User) => {
@@ -35,6 +37,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
   ) => {
     const { name, value } = event.target;
     setUpdatedUser((updatedUser) => ({ ...updatedUser, [name]: value }));
+    setValidInput(value.trim() !== '');
   };
 
   const handleSave = () => {
@@ -46,6 +49,12 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
     onDelete(updatedUser);
     setEditMode(false);
   };
+
+  const handleCancel = () => {
+    setUpdatedUser(user)
+    setEditMode(false)
+    setValidInput(true)
+  }
 
   const handleDeleteConfirmation = () => {
     handleDelete();
@@ -130,11 +139,12 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
                 aria-label="Save user"
                 icon={<CheckIcon />}
                 onClick={handleSave}
+                isDisabled={!validInput}
               />
               <IconButton
                 aria-label="Close edit mode"
                 icon={<CloseIcon />}
-                onClick={() => setEditMode(false)}
+                onClick={handleCancel}
               />
             </>
           )}

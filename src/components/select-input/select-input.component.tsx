@@ -16,7 +16,6 @@ export const SelectInputComponent: FC<SelectInputComponentProps> = ({
       name={name}
       className={`input ${classStyle}`}
     > 
-      <option>Seleziona una compagnia</option>
       <option value='FabrikDistribution'>FabrikDistribution</option>
       <option value='FabrikStore'>FabrikStore</option>
       <option value='Fabrikam'>Fabrikam</option>

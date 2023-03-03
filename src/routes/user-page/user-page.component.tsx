@@ -20,6 +20,7 @@ export const UserPageComponent: FC<UserPageComponentProps> = ({ onUpdateUser, us
 
     const [editMode, setEditMode] = useState(false);
     const [updatedUser, setUpdatedUser] = useState<User>(user);
+    const [validInput, setValidInput] = useState(true);
 
     const navigate = useNavigate()
 
@@ -32,16 +33,22 @@ export const UserPageComponent: FC<UserPageComponentProps> = ({ onUpdateUser, us
     ) => {
         const { name, value } = event.target;
             setUpdatedUser((updatedUser) => ({ ...updatedUser, [name]: value }));
-        
+            setValidInput(value.trim() !== '');
     };
 
     const handleSave = () => {
-        const index = users.findIndex(object => object.userId === updatedUser.userId);
+        const index = users.findIndex(object => object.id === updatedUser.id);
         if (index !== -1) {
             onUpdateUser(index, updatedUser);
             setEditMode(false);
         }
     };
+
+    const handleCancel = () => {
+        setUpdatedUser(user)
+        setEditMode(false)
+        setValidInput(true)
+      }
 
     return (
         <Center marginTop={20}>
@@ -147,8 +154,8 @@ export const UserPageComponent: FC<UserPageComponentProps> = ({ onUpdateUser, us
                 <Stack direction='row' justifyContent='center' marginBottom={5} spacing={7}>
                     {editMode ?
                         <>
-                            <Button colorScheme='green' onClick={handleSave}>Salva</Button>
-                            <Button onClick={() => setEditMode(false)}>Annulla</Button>
+                            <Button colorScheme='green' onClick={handleSave} isDisabled={!validInput}>Salva</Button>
+                            <Button onClick={handleCancel}>Annulla</Button>
                         </>
                         :
                         <>
