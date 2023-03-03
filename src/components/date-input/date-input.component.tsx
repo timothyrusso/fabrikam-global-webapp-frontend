@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { GenericInputComponentProps } from '../../utils/genericTypes';
+import { GenericInputComponentProps } from '../../utils/generic-types';
 
 export const DateInputComponent: FC<GenericInputComponentProps> = ({
   inputValue,

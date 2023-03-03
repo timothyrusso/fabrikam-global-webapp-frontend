@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { SelectInputComponentProps } from '../../utils/genericTypes';
+import { SelectInputComponentProps } from '../../utils/generic-types';
 
 export const SelectInputComponent: FC<SelectInputComponentProps> = ({
   inputValue,

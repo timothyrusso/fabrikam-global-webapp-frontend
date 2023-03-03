@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { TableRowComponent } from '../table-row/table-row.component';
 import { ModalComponent } from '../modal/modal.component';
-import { User } from '../../utils/genericTypes';
+import { User } from '../../utils/generic-types';
 import { FC } from 'react';
 
 interface TableComponentProps extends React.HTMLAttributes<HTMLElement> {

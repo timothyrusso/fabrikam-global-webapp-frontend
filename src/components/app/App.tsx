@@ -12,12 +12,16 @@ import {
 } from '../../utils/api';
 import { useEffect, useState } from 'react';
 import { sampleData } from '../../utils/data';
-import { User } from '../../utils/genericTypes';
-import { Routes, Route } from 'react-router-dom';
+import { User } from '../../utils/generic-types';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { toastDeleteSuccess, toastCreateSuccess, toastUpdateSuccess, toastGenericError, toastFetchError } from '../../utils/toast.config';
 
 export const App = () => {
   const [data, setData] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const navigate = useNavigate()
+  const goToHomePage = () => navigate('/')
 
   const toast = useToast()
 
@@ -25,14 +29,7 @@ export const App = () => {
     getAllUsers().then((response) => {
       setData(response)
     }).catch((err) => {
-      toast({
-        position: 'top',
-        title: `Errore nel caricamento dei dati.`,
-        description: err.message,
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      });
+      toast(toastFetchError(err));
       console.log(err);
     }).finally(() => setIsLoading(false))
   }, []);
@@ -42,24 +39,11 @@ export const App = () => {
     updatedData[index] = updatedUser;
     updateUser({ ...updatedUser, id: updatedUser.id })
       .then(() => {
-        toast({
-          position: 'top',
-          title: 'Informazioni aggiornate.',
-          status: 'success',
-          duration: 3000,
-          isClosable: true,
-        });
+        toast(toastUpdateSuccess);
         setData(updatedData);
       })
       .catch((err) => {
-        toast({
-          position: 'top',
-          title: `Si e' verificato un errore.`,
-          description: err.message,
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-        });
+        toast(toastGenericError(err));
         console.log(err);
       });
   };
@@ -70,23 +54,11 @@ export const App = () => {
     deleteUser({ id: updatedUser.id })
       .then(() => {
         setData(updatedData.filter(user => user.id !== updatedUser.id));
-        toast({
-          position: 'top',
-          title: 'Risorsa eliminata.',
-          status: 'success',
-          duration: 3000,
-          isClosable: true,
-        })
+        toast(toastDeleteSuccess)
+        goToHomePage()
       })
       .catch((err) => {
-        toast({
-          position: 'top',
-          title: `Si e' verificato un errore.`,
-          description: err.message,
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-        });
+        toast(toastGenericError(err));
         console.log(err);
       });
   };
@@ -94,13 +66,7 @@ export const App = () => {
   const handleCreateUser = (createdUser: User) => {
     createUser({ ...createdUser })
       .then(() => {
-        toast({
-          position: 'top',
-          title: 'Nuova risorsa creata.',
-          status: 'success',
-          duration: 3000,
-          isClosable: true,
-        });
+        toast(toastCreateSuccess);
         getAllUsers()
           .then((response) => {
             setData(response);
@@ -110,14 +76,7 @@ export const App = () => {
           });
       })
       .catch((err) => {
-        toast({
-          position: 'top',
-          title: `Si e' verificato un errore.`,
-          description: err.message,
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-        });
+        toast(toastGenericError(err));
         console.log(err);
       });
   };
@@ -134,7 +93,7 @@ export const App = () => {
               onDeleteUser={handleDeleteUser}
               onCreateUser={handleCreateUser}
             />} />
-            <Route path="/detail-page/:id" element={<UserPageComponent onUpdateUser={handleUpdateUser} users={data} />} />
+            <Route path="/detail-page/:id" element={<UserPageComponent onUpdateUser={handleUpdateUser} onDeleteUser={handleDeleteUser} users={data} />} />
           </Routes>
         </Grid>
       </Box>

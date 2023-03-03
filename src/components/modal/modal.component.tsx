@@ -16,7 +16,7 @@ import { DateInputComponent } from '../date-input/date-input.component';
 import { NumberInputComponent } from '../number-input/number-input.component';
 import { SelectInputComponent } from '../select-input/select-input.component';
 import { TextInputComponent } from '../text-input/text-input.component';
-import { User } from '../../utils/genericTypes';
+import { User } from '../../utils/generic-types';
 import { selectDefaultValue } from '../../utils/constants';
 import './modal.style.css';
 

@@ -6,14 +6,16 @@ import { DateInputComponent } from "../../components/date-input/date-input.compo
 import { FC, useState, ChangeEvent, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { formatDateString } from "../../utils/helpers"
-import { User } from "../../utils/genericTypes"
+import { User } from "../../utils/generic-types"
+import { ConfirmationModalComponent } from "../../components/confirmation-modal/confirmation-modal.component"
 
 export type UserPageComponentProps = {
     onUpdateUser: (index: number, updatedUser: User) => void;
+    onDeleteUser: (index: number, updatedUser: User) => void;
     users: User[];
 }
 
-export const UserPageComponent: FC<UserPageComponentProps> = ({ onUpdateUser, users }) => {
+export const UserPageComponent: FC<UserPageComponentProps> = ({ onUpdateUser, onDeleteUser, users }) => {
     const location = useLocation();
 
     const user = location.state?.user;
@@ -26,14 +28,14 @@ export const UserPageComponent: FC<UserPageComponentProps> = ({ onUpdateUser, us
 
     useEffect(() => {
         setUpdatedUser(user);
-      }, [user]);
+    }, [user]);
 
     const handleChange = (
         event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
     ) => {
         const { name, value } = event.target;
-            setUpdatedUser((updatedUser) => ({ ...updatedUser, [name]: value }));
-            setValidInput(value.trim() !== '');
+        setUpdatedUser((updatedUser) => ({ ...updatedUser, [name]: value }));
+        setValidInput(value.trim() !== '');
     };
 
     const handleSave = () => {
@@ -48,7 +50,16 @@ export const UserPageComponent: FC<UserPageComponentProps> = ({ onUpdateUser, us
         setUpdatedUser(user)
         setEditMode(false)
         setValidInput(true)
-      }
+    }
+
+    const handleDeleteConfirmation = () => {
+        const index = users.findIndex(object => object.id === updatedUser.id);
+        if (index !== -1) {
+            const updatedData = [...users];
+            updatedData[index] = updatedUser;
+            onDeleteUser(index, updatedUser)
+        }
+    };
 
     return (
         <Center marginTop={20}>
@@ -151,10 +162,11 @@ export const UserPageComponent: FC<UserPageComponentProps> = ({ onUpdateUser, us
                         </>
                     )}
                 </Stack>
-                <Stack direction='row' justifyContent='center' marginBottom={5} spacing={7}>
+                <Stack direction='row' justifyContent='center' marginBottom={5} spacing={4}>
                     {editMode ?
                         <>
                             <Button colorScheme='green' onClick={handleSave} isDisabled={!validInput}>Salva</Button>
+                            <ConfirmationModalComponent handleDeleteConfirmation={handleDeleteConfirmation} />
                             <Button onClick={handleCancel}>Annulla</Button>
                         </>
                         :
