@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { ChakraProvider, Box, Grid, theme, useToast } from '@chakra-ui/react';
 import { TableComponent } from '../table/table.component';
 import { Navbar } from '../navbar/navbar.component';
@@ -10,7 +9,7 @@ import {
   deleteUser,
   createUser,
 } from '../../utils/api';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { sampleData } from '../../utils/data';
 import { User } from '../../utils/generic-types';
 import { Routes, Route, useNavigate } from 'react-router-dom';
@@ -26,13 +25,16 @@ export const App = () => {
   const toast = useToast()
 
   useEffect(() => {
-    getAllUsers().then((response) => {
-      setData(response)
-    }).catch((err) => {
+    getAllUsers().then((response) => setData(response)).catch((err) => {
       toast(toastFetchError(err));
       console.log(err);
     }).finally(() => setIsLoading(false))
   }, []);
+
+  const handleApiError = (err: Error) => {
+    toast(toastGenericError(err));
+    console.log(err);
+  };
 
   const handleUpdateUser = (index: number, updatedUser: User) => {
     const updatedData = [...data];
@@ -42,10 +44,7 @@ export const App = () => {
         toast(toastUpdateSuccess);
         setData(updatedData);
       })
-      .catch((err) => {
-        toast(toastGenericError(err));
-        console.log(err);
-      });
+      .catch(handleApiError);
   };
 
   const handleDeleteUser = (index: number, updatedUser: User) => {
@@ -57,28 +56,17 @@ export const App = () => {
         toast(toastDeleteSuccess)
         goToHomePage()
       })
-      .catch((err) => {
-        toast(toastGenericError(err));
-        console.log(err);
-      });
+      .catch(handleApiError);
   };
 
   const handleCreateUser = (createdUser: User) => {
     createUser({ ...createdUser })
       .then(() => {
         toast(toastCreateSuccess);
-        getAllUsers()
-          .then((response) => {
-            setData(response);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      })
-      .catch((err) => {
-        toast(toastGenericError(err));
-        console.log(err);
-      });
+        return getAllUsers()
+      }
+      ).then((response) => setData(response))
+      .catch(handleApiError);
   };
 
   return (
