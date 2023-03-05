@@ -13,3 +13,7 @@ In this application you can add, modify and remove users and handle them with a 
 ## Hosting
 
 This project is hosted and deployed with [Netlify](https://www.netlify.com/), you can run the live demo at this [link](https://fabrikam-global.netlify.app/)
+
+## Backend
+
+The API is in this [repository](https://github.com/timothyrusso/fabrikam-global-webapp)
