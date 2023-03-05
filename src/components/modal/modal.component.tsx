@@ -11,23 +11,22 @@ import {
   FormLabel,
   ModalFooter,
 } from '@chakra-ui/react';
-import { useRef, FC, useState, ChangeEvent } from 'react';
+import { useRef, useState, ChangeEvent } from 'react';
 import { DateInputComponent } from '../date-input/date-input.component';
 import { NumberInputComponent } from '../number-input/number-input.component';
 import { SelectInputComponent } from '../select-input/select-input.component';
 import { TextInputComponent } from '../text-input/text-input.component';
 import { User } from '../../utils/generic-types';
 import { selectDefaultValue } from '../../utils/constants';
+import { useFabrikamApi } from '../../hooks/useFabrikamApi';
 import './modal.style.css';
 
-export type ModalComponentProps = {
-  onCreate: (createdUser: User) => void;
-};
-
-export const ModalComponent: FC<ModalComponentProps> = ({ onCreate }) => {
+export const ModalComponent = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [createdUser, setCreatedUser] = useState<User>(selectDefaultValue);
   const [validInput, setValidInput] = useState(false);
+
+  const { handleCreateUser } = useFabrikamApi()
 
   const initialRef = useRef(null);
   const finalRef = useRef(null);
@@ -48,7 +47,7 @@ export const ModalComponent: FC<ModalComponentProps> = ({ onCreate }) => {
   };
 
   const handleCreate = () => {
-    onCreate(createdUser);
+    handleCreateUser(createdUser);
     onClose();
   };
 

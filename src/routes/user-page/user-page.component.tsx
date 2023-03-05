@@ -3,22 +3,18 @@ import { NumberInputComponent } from "../../components/number-input/number-input
 import { TextInputComponent } from "../../components/text-input/text-input.component"
 import { SelectInputComponent } from "../../components/select-input/select-input.component"
 import { DateInputComponent } from "../../components/date-input/date-input.component"
-import { FC, useState, ChangeEvent, useEffect } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { formatDateString } from "../../utils/helpers"
 import { User } from "../../utils/generic-types"
 import { ConfirmationModalComponent } from "../../components/confirmation-modal/confirmation-modal.component"
 import { useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
+import { useFabrikamApi } from "../../hooks/useFabrikamApi"
 
-export type UserPageComponentProps = {
-    onUpdateUser: (updatedUser: User) => void;
-    onDeleteUser: (updatedUser: User) => void;
-}
-
-export const UserPageComponent: FC<UserPageComponentProps> = ({ onUpdateUser, onDeleteUser }) => {
+export const UserPageComponent = () => {
     const location = useLocation();
-
+    const { handleUpdateUser, handleDeleteUser } = useFabrikamApi()
     const user = location.state?.user;
 
     const [editMode, setEditMode] = useState(false);
@@ -26,7 +22,6 @@ export const UserPageComponent: FC<UserPageComponentProps> = ({ onUpdateUser, on
     const [validInput, setValidInput] = useState(true);
 
     const users = useSelector((state: RootState) => state.users);
-
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -44,7 +39,7 @@ export const UserPageComponent: FC<UserPageComponentProps> = ({ onUpdateUser, on
     const handleSave = () => {
         const index = users.findIndex(object => object.id === updatedUser.id);
         if (index !== -1) {
-            onUpdateUser(updatedUser);
+            handleUpdateUser(updatedUser);
             setEditMode(false);
         }
     };
@@ -60,7 +55,7 @@ export const UserPageComponent: FC<UserPageComponentProps> = ({ onUpdateUser, on
         if (index !== -1) {
             const updatedData = [...users];
             updatedData[index] = updatedUser;
-            onDeleteUser(updatedUser)
+            handleDeleteUser(updatedUser)
         }
     };
 

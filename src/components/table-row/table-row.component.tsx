@@ -9,22 +9,21 @@ import { SelectInputComponent } from '../select-input/select-input.component';
 import { TableUnitComponent } from '../table-unit/table-unit.component';
 import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 import { useNavigate } from 'react-router-dom';
+import { useFabrikamApi } from '../../hooks/useFabrikamApi';
 import './table-row.style.css';
 
 export type TableRowComponentProps = {
-  onSave: (updatedUser: User) => void;
-  onDelete: (updatedUser: User) => void;
   user: User;
 };
 
 export const TableRowComponent: FC<TableRowComponentProps> = ({
   user,
-  onSave,
-  onDelete,
 }) => {
   const [editMode, setEditMode] = useState(false);
   const [updatedUser, setUpdatedUser] = useState(user);
   const [validInput, setValidInput] = useState(true);
+
+  const { handleUpdateUser, handleDeleteUser } = useFabrikamApi()
 
   const navigate = useNavigate();
 
@@ -41,12 +40,12 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
   };
 
   const handleSave = () => {
-    onSave(updatedUser);
+    handleUpdateUser(updatedUser);
     setEditMode(false);
   };
 
   const handleDelete = () => {
-    onDelete(updatedUser);
+    handleDeleteUser(updatedUser);
     setEditMode(false);
   };
 
