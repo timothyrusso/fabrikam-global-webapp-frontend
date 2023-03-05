@@ -9,23 +9,27 @@ import {
   deleteUser,
   createUser,
 } from '../../utils/api';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { sampleData } from '../../utils/data';
 import { User } from '../../utils/generic-types';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { toastDeleteSuccess, toastCreateSuccess, toastUpdateSuccess, toastGenericError, toastFetchError } from '../../utils/toast.config';
+import { useDispatch } from 'react-redux';
 
 export const App = () => {
-  const [data, setData] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate()
   const goToHomePage = () => navigate('/')
 
+  const dispatch = useDispatch()
+
   const toast = useToast()
 
   useEffect(() => {
-    getAllUsers().then((response) => setData(response)).catch((err) => {
+    getAllUsers().then((response) => {
+      dispatch({ type: 'FETCH_USERS', payload: response });
+    }).catch((err) => {
       toast(toastFetchError(err));
       console.log(err);
     }).finally(() => setIsLoading(false))
@@ -36,23 +40,19 @@ export const App = () => {
     console.log(err);
   };
 
-  const handleUpdateUser = (index: number, updatedUser: User) => {
-    const updatedData = [...data];
-    updatedData[index] = updatedUser;
+  const handleUpdateUser = (updatedUser: User) => {
     updateUser({ ...updatedUser, id: updatedUser.id })
       .then(() => {
         toast(toastUpdateSuccess);
-        setData(updatedData);
+        dispatch({ type: 'UPDATE_USER', payload: updatedUser });
       })
       .catch(handleApiError);
   };
 
-  const handleDeleteUser = (index: number, updatedUser: User) => {
-    const updatedData = [...data];
-    updatedData[index] = updatedUser;
+  const handleDeleteUser = (updatedUser: User) => {
     deleteUser({ id: updatedUser.id })
       .then(() => {
-        setData(updatedData.filter(user => user.id !== updatedUser.id));
+        dispatch({ type: 'DELETE_USER', payload: updatedUser });
         toast(toastDeleteSuccess)
         goToHomePage()
       })
@@ -65,7 +65,9 @@ export const App = () => {
         toast(toastCreateSuccess);
         return getAllUsers()
       }
-      ).then((response) => setData(response))
+      ).then((response) => {
+        dispatch({ type: 'FETCH_USERS', payload: response });
+      })
       .catch(handleApiError);
   };
 
@@ -76,12 +78,11 @@ export const App = () => {
           <Navbar />
           <Routes>
             <Route path="/" element={isLoading ? <SpinnerComponent /> : <TableComponent
-              users={data}
               onUpdateUser={handleUpdateUser}
               onDeleteUser={handleDeleteUser}
               onCreateUser={handleCreateUser}
             />} />
-            <Route path="/detail-page/:id" element={<UserPageComponent onUpdateUser={handleUpdateUser} onDeleteUser={handleDeleteUser} users={data} />} />
+            <Route path="/detail-page/:id" element={<UserPageComponent onUpdateUser={handleUpdateUser} onDeleteUser={handleDeleteUser} />} />
           </Routes>
         </Grid>
       </Box>

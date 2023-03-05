@@ -8,14 +8,15 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { formatDateString } from "../../utils/helpers"
 import { User } from "../../utils/generic-types"
 import { ConfirmationModalComponent } from "../../components/confirmation-modal/confirmation-modal.component"
+import { useSelector } from "react-redux"
+import { RootState } from "../../redux/store"
 
 export type UserPageComponentProps = {
-    onUpdateUser: (index: number, updatedUser: User) => void;
-    onDeleteUser: (index: number, updatedUser: User) => void;
-    users: User[];
+    onUpdateUser: (updatedUser: User) => void;
+    onDeleteUser: (updatedUser: User) => void;
 }
 
-export const UserPageComponent: FC<UserPageComponentProps> = ({ onUpdateUser, onDeleteUser, users }) => {
+export const UserPageComponent: FC<UserPageComponentProps> = ({ onUpdateUser, onDeleteUser }) => {
     const location = useLocation();
 
     const user = location.state?.user;
@@ -23,6 +24,8 @@ export const UserPageComponent: FC<UserPageComponentProps> = ({ onUpdateUser, on
     const [editMode, setEditMode] = useState(false);
     const [updatedUser, setUpdatedUser] = useState<User>(user);
     const [validInput, setValidInput] = useState(true);
+
+    const users = useSelector((state: RootState) => state.users);
 
     const navigate = useNavigate()
 
@@ -41,7 +44,7 @@ export const UserPageComponent: FC<UserPageComponentProps> = ({ onUpdateUser, on
     const handleSave = () => {
         const index = users.findIndex(object => object.id === updatedUser.id);
         if (index !== -1) {
-            onUpdateUser(index, updatedUser);
+            onUpdateUser(updatedUser);
             setEditMode(false);
         }
     };
@@ -57,7 +60,7 @@ export const UserPageComponent: FC<UserPageComponentProps> = ({ onUpdateUser, on
         if (index !== -1) {
             const updatedData = [...users];
             updatedData[index] = updatedUser;
-            onDeleteUser(index, updatedUser)
+            onDeleteUser(updatedUser)
         }
     };
 

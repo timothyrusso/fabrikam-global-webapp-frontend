@@ -11,30 +11,32 @@ import { TableRowComponent } from '../table-row/table-row.component';
 import { ModalComponent } from '../modal/modal.component';
 import { User } from '../../utils/generic-types';
 import { FC } from 'react';
+import { useSelector } from "react-redux"
+import { RootState } from "../../redux/store"
 
 interface TableComponentProps extends React.HTMLAttributes<HTMLElement> {
-  users: User[];
-  onUpdateUser: (index: number, updatedUser: User) => void;
-  onDeleteUser: (index: number, updatedUser: User) => void;
+  onUpdateUser: (updatedUser: User) => void;
+  onDeleteUser: (updatedUser: User) => void;
   onCreateUser: (createdUser: User) => void;
 }
 
 export const TableComponent: FC<TableComponentProps> = ({
-  users,
   onUpdateUser,
   onDeleteUser,
   onCreateUser,
 }) => {
+  const users = useSelector((state: RootState) => state.users);
+
   const handleChange = (index: number, updatedUser: User) => {
     const updatedData = [...users];
     updatedData[index] = updatedUser;
-    onUpdateUser(index, updatedUser);
+    onUpdateUser(updatedUser);
   };
 
   const handleDelete = (index: number, updatedUser: User) => {
     const updatedData = [...users];
     updatedData[index] = updatedUser;
-    onDeleteUser(index, updatedUser);
+    onDeleteUser(updatedUser);
   };
 
   const handleCreate = (createdUser: User) => {

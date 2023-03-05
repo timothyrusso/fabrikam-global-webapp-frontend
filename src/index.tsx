@@ -5,6 +5,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { App } from './components/app/App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 const container = document.getElementById('root');
 if (!container) throw new Error('Failed to find the root element');
@@ -13,8 +15,10 @@ const root = ReactDOM.createRoot(container);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <ColorModeScript />
-      <App />
+      <Provider store={store}>
+        <ColorModeScript />
+        <App />
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>
 );
