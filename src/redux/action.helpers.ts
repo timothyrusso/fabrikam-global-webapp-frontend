@@ -1,4 +1,4 @@
-import { FETCH_USERS, UPDATE_USER, CREATE_USER, DELETE_USER } from "./action.types";
+import { FETCH_USERS, UPDATE_USER, DELETE_USER } from "./action.types";
 import { User } from "../utils/generic-types";
 
 type FetchUsersAction = {
@@ -16,12 +16,7 @@ type DeleteUserAction = {
     payload: User;
 }
 
-type CreateUserAction = {
-    type: typeof CREATE_USER;
-    payload: User;
-}
-
-export type UserActionTypes = FetchUsersAction | UpdateUserAction | DeleteUserAction | CreateUserAction;
+export type UserActionTypes = FetchUsersAction | UpdateUserAction | DeleteUserAction;
 
 export const fetchUsersAction = (users: User[]): FetchUsersAction => ({
     type: FETCH_USERS,
@@ -36,9 +31,4 @@ export const updateUserAction = (updatedUser: User): UpdateUserAction => ({
 export const deleteUserAction = (deletedUser: User): DeleteUserAction => ({
     type: DELETE_USER,
     payload: deletedUser,
-});
-
-export const createUserAction = (createdUser: User): CreateUserAction => ({
-    type: CREATE_USER,
-    payload: createdUser,
 });
