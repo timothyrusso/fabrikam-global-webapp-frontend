@@ -3,17 +3,12 @@ import { useDispatch } from "react-redux";
 import { useToast } from "@chakra-ui/react";
 import { updateUser, deleteUser, createUser, getAllUsers } from "../utils/api";
 import { toastUpdateSuccess, toastGenericError, toastDeleteSuccess, toastCreateSuccess } from "../utils/toast.config";
-import { useNavigate } from "react-router-dom";
 
 export const useFabrikamApi = () => {
-
-    const navigate = useNavigate()
 
     const dispatch = useDispatch()
 
     const toast = useToast()
-
-    const goToHomePage = () => navigate('/')
 
     const handleApiError = (err: Error) => {
         toast(toastGenericError(err));
@@ -34,7 +29,6 @@ export const useFabrikamApi = () => {
       .then(() => {
         dispatch({ type: 'DELETE_USER', payload: updatedUser });
         toast(toastDeleteSuccess)
-        goToHomePage()
       })
       .catch(handleApiError);
   };

@@ -23,6 +23,7 @@ export const UserPageComponent = () => {
 
     const users = useSelector((state: RootState) => state.users);
     const navigate = useNavigate()
+    const goToHomePage = () => navigate('/')
 
     useEffect(() => {
         setUpdatedUser(user);
@@ -56,6 +57,7 @@ export const UserPageComponent = () => {
             const updatedData = [...users];
             updatedData[index] = updatedUser;
             handleDeleteUser(updatedUser)
+            goToHomePage()
         }
     };
 
