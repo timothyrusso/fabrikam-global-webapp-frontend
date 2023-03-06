@@ -22,6 +22,8 @@ export type GenericInputComponentProps = {
   name: string;
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
   classStyle?: string;
+  label?: string;
+  isTableRow?: boolean;
 };
 
 export type SelectInputComponentProps = {
@@ -29,6 +31,8 @@ export type SelectInputComponentProps = {
   name: string;
   handleChange: (event: ChangeEvent<HTMLSelectElement>) => void;
   classStyle?: string;
+  label?: any;
+  isTableRow?: boolean;
 };
 
 export type NumberInputComponentProps = {
@@ -36,4 +40,6 @@ export type NumberInputComponentProps = {
   name: string;
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
   classStyle?: string;
+  label?: string;
+  isTableRow?: boolean;
 };

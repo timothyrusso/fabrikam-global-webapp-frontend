@@ -1,6 +1,6 @@
 import { Flex, Center, Spacer } from '@chakra-ui/react';
 import { ColorModeSwitcher } from '../colorModeSwitcher/ColorModeSwitcher';
-import { ReactComponent as Logo } from '../../assets/logo.svg';
+import { ReactComponent as Logo } from '../../assets/logo.svg'
 import { useNavigate } from 'react-router-dom';
 
 export const Navbar = () => {

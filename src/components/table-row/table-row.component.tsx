@@ -74,6 +74,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               inputValue={updatedUser.userId}
               name="userId"
               handleChange={handleChange}
+              isTableRow={true}
             />
           </Td>
           <Td >
@@ -81,6 +82,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               inputValue={updatedUser.firstName}
               name="firstName"
               handleChange={handleChange}
+              isTableRow={true}
             />
           </Td>
           <Td >
@@ -88,6 +90,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               inputValue={updatedUser.lastName}
               name="lastName"
               handleChange={handleChange}
+              isTableRow={true}
             />
           </Td>
           <Td >
@@ -95,6 +98,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               inputValue={updatedUser.birthDay}
               name="birthDay"
               handleChange={handleChange}
+              isTableRow={true}
             />
           </Td>
           <Td >
@@ -102,6 +106,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               inputValue={updatedUser.company}
               name="company"
               handleChange={handleChange}
+              isTableRow={true}
             />
           </Td>
           <Td >
@@ -109,6 +114,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               inputValue={updatedUser.startDate}
               name="startDate"
               handleChange={handleChange}
+              isTableRow={true}
             />
           </Td>
           <Td >
@@ -116,6 +122,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               inputValue={updatedUser.endDate}
               name="endDate"
               handleChange={handleChange}
+              isTableRow={true}
             />
           </Td>
         </>

@@ -7,11 +7,9 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  FormControl,
-  FormLabel,
   ModalFooter,
 } from '@chakra-ui/react';
-import { useRef, useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { DateInputComponent } from '../date-input/date-input.component';
 import { NumberInputComponent } from '../number-input/number-input.component';
 import { SelectInputComponent } from '../select-input/select-input.component';
@@ -27,9 +25,6 @@ export const ModalComponent = () => {
   const [validInput, setValidInput] = useState(false);
 
   const { handleCreateUser } = useFabrikamApi()
-
-  const initialRef = useRef(null);
-  const finalRef = useRef(null);
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
@@ -62,8 +57,6 @@ export const ModalComponent = () => {
         Aggiungi utente
       </Button>
       <Modal
-        initialFocusRef={initialRef}
-        finalFocusRef={finalRef}
         isOpen={isOpen}
         onClose={onClose}
         isCentered
@@ -73,54 +66,42 @@ export const ModalComponent = () => {
           <ModalHeader>Aggiungi nuovo utente</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <FormControl>
-              <FormLabel>userId</FormLabel>
               <NumberInputComponent
                 handleChange={handleChange}
                 name="userId"
                 classStyle="modal"
+                label='Inserisci lo userId (numero)'
               />
-            </FormControl>
-            <FormControl>
-              <FormLabel>Nome</FormLabel>
               <TextInputComponent
                 name="firstName"
                 handleChange={handleChange}
                 classStyle="modal"
+                label='Inserisci il nome'
               />
-            </FormControl>
-            <FormControl mt={4}>
-              <FormLabel>Cognome</FormLabel>
               <TextInputComponent
                 name="lastName"
                 handleChange={handleChange}
                 classStyle="modal"
+                label='Inserisci il cognome'
               />
-            </FormControl>
-            <FormControl mt={4}>
-              <FormLabel>Data di nascita</FormLabel>
               <DateInputComponent
                 handleChange={handleChange}
                 name="birthDay"
                 classStyle="modal"
+                label='Inserisci la data di nascita'
               />
-            </FormControl>
-            <FormControl mt={4}>
-              <FormLabel>Societa'</FormLabel>
               <SelectInputComponent
                 handleChange={handleChange}
                 name="company"
                 classStyle="modal"
+                label="Inserisci la compagnia"
               />
-            </FormControl>
-            <FormControl mt={4}>
-              <FormLabel>Data di inizio</FormLabel>
               <DateInputComponent
                 handleChange={handleChange}
                 name="startDate"
                 classStyle="modal"
+                label='Inserisci la data di inizio'
               />
-            </FormControl>
           </ModalBody>
           <ModalFooter>
             <Button onClick={handleCreate} colorScheme="blue" mr={3} isDisabled={!validInput}>Salva
