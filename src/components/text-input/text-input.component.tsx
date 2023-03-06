@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { GenericInputComponentProps } from '../../types/generic-types';
-import { FormControl, FormLabel } from '@chakra-ui/react';
+import { FormControl, FormLabel, Text } from '@chakra-ui/react';
+import { excludedTextInputNames } from '../../utils/constants';
 
 export const TextInputComponent: FC<GenericInputComponentProps> = ({
   inputValue,
@@ -8,18 +9,30 @@ export const TextInputComponent: FC<GenericInputComponentProps> = ({
   handleChange,
   classStyle,
   label,
-  isTableRow
+  isTableRow,
+  register,
+  errors
 }) => {
+  const isRequired = !excludedTextInputNames.includes(name);
+
   return (
     <FormControl mt={isTableRow ? 0 : 4}>
       {label ? <FormLabel htmlFor={name}>{label}</FormLabel> : null}
       <input
         id={name}
         value={inputValue}
-        onChange={handleChange}
         name={name}
         className={`input ${classStyle}`}
+        {...register(name, {
+          onChange: (event: any) => handleChange(event),
+          required: isRequired ? 'Campo obbligatorio' : false,
+          maxLength: {
+            value: 30,
+            message: 'Inserire massimo 30 caratteri'
+          },
+        })}
       />
+      {errors[name]?.message.length > 0 ? <Text color='red.500'>{errors[name]?.message}</Text> : null}
     </FormControl>
   );
 };

@@ -6,3 +6,7 @@ export const BASE_URL =
 export const selectDefaultValue = {
     company: 'FabrikDistribution',
   } as User;
+
+export const excludedTextInputNames = ['addressOne', 'addressTwo', 'city', 'province'];
+
+export const excludedDateInputNames = ['endDate'];

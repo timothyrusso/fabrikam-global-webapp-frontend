@@ -1,4 +1,4 @@
-import { Tr, Td, IconButton, ButtonGroup } from '@chakra-ui/react';
+import { Tr, Td, IconButton, ButtonGroup, Tooltip } from '@chakra-ui/react';
 import { EditIcon, CloseIcon, CheckIcon } from '@chakra-ui/icons';
 import { FC, useState, ChangeEvent } from 'react';
 import { User } from '../../types/generic-types';
@@ -10,6 +10,7 @@ import { TableUnitComponent } from '../table-unit/table-unit.component';
 import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 import { useNavigate } from 'react-router-dom';
 import { useFabrikamApi } from '../../hooks/useFabrikamApi';
+import { useForm } from 'react-hook-form';
 import './table-row.style.css';
 
 export type TableRowComponentProps = {
@@ -31,6 +32,8 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
     navigate(`/detail-page/${user.id}`, { state: { user } });
   };
 
+  const { register, formState: { errors } } = useForm();
+
   const handleChange = (
     event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
   ) => {
@@ -40,8 +43,12 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
   };
 
   const handleSave = () => {
-    handleUpdateUser(updatedUser);
-    setEditMode(false);
+    if (updatedUser.userId > 0 && updatedUser.firstName !== '' && updatedUser.lastName !== '' && updatedUser.startDate !== '' && updatedUser.endDate !== null) {
+      handleUpdateUser(updatedUser);
+      setEditMode(false);
+    } else {
+      setValidInput(false)
+    }
   };
 
   const handleDelete = () => {
@@ -75,6 +82,8 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               name="userId"
               handleChange={handleChange}
               isTableRow={true}
+              register={register}
+              errors={errors}
             />
           </Td>
           <Td >
@@ -83,6 +92,8 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               name="firstName"
               handleChange={handleChange}
               isTableRow={true}
+              register={register}
+              errors={errors}
             />
           </Td>
           <Td >
@@ -91,6 +102,8 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               name="lastName"
               handleChange={handleChange}
               isTableRow={true}
+              register={register}
+              errors={errors}
             />
           </Td>
           <Td >
@@ -99,6 +112,8 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               name="birthDay"
               handleChange={handleChange}
               isTableRow={true}
+              register={register}
+              errors={errors}
             />
           </Td>
           <Td >
@@ -107,6 +122,8 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               name="company"
               handleChange={handleChange}
               isTableRow={true}
+              register={register}
+              errors={errors}
             />
           </Td>
           <Td >
@@ -115,6 +132,8 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               name="startDate"
               handleChange={handleChange}
               isTableRow={true}
+              register={register}
+              errors={errors}
             />
           </Td>
           <Td >
@@ -123,6 +142,8 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               name="endDate"
               handleChange={handleChange}
               isTableRow={true}
+              register={register}
+              errors={errors}
             />
           </Td>
         </>
@@ -140,13 +161,20 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
       <Td>
         <ButtonGroup size="sm" isAttached variant="outline">
           {editMode && (
-            <>
+            <>{!validInput ? <Tooltip label='Compila tutti i campi obbligatori'>
               <IconButton
                 aria-label="Save user"
                 icon={<CheckIcon />}
                 onClick={handleSave}
                 isDisabled={!validInput}
               />
+            </Tooltip> : <IconButton
+              aria-label="Save user"
+              icon={<CheckIcon />}
+              onClick={handleSave}
+              isDisabled={!validInput}
+            />}
+
               <IconButton
                 aria-label="Close edit mode"
                 icon={<CloseIcon />}

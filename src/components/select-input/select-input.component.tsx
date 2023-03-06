@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { SelectInputComponentProps } from '../../types/generic-types';
-import { FormControl, FormLabel } from '@chakra-ui/react';
+import { FormControl, FormLabel, Text } from '@chakra-ui/react';
 
 export const SelectInputComponent: FC<SelectInputComponentProps> = ({
   inputValue,
@@ -8,7 +8,9 @@ export const SelectInputComponent: FC<SelectInputComponentProps> = ({
   handleChange,
   classStyle,
   label,
-  isTableRow
+  isTableRow,
+  register,
+  errors
 }) => {
 
   return (
@@ -18,14 +20,18 @@ export const SelectInputComponent: FC<SelectInputComponentProps> = ({
         id={name}
         placeholder="Seleziona azienda"
         value={inputValue}
-        onChange={handleChange}
         name={name}
         className={`input ${classStyle}`}
+        {...register(name, {
+          onChange: (event: any) => handleChange(event),
+          required: 'Campo obbligatorio',
+        })}
       >
         <option value='FabrikDistribution'>FabrikDistribution</option>
         <option value='FabrikStore'>FabrikStore</option>
         <option value='Fabrikam'>Fabrikam</option>
       </select>
+      {errors[name]?.message.length > 0 ? <Text color='red.500'>{errors[name]?.message}</Text> : null}
     </FormControl>
   );
 };

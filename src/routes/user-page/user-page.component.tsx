@@ -1,4 +1,4 @@
-import { Box, Center, Avatar, FormLabel, Stack, Text, Button } from "@chakra-ui/react"
+import { Box, Center, Avatar, Stack, Text, Button } from "@chakra-ui/react"
 import { NumberInputComponent } from "../../components/number-input/number-input.component"
 import { TextInputComponent } from "../../components/text-input/text-input.component"
 import { SelectInputComponent } from "../../components/select-input/select-input.component"
@@ -11,6 +11,7 @@ import { ConfirmationModalComponent } from "../../components/confirmation-modal/
 import { useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
 import { useFabrikamApi } from "../../hooks/useFabrikamApi"
+import { useForm } from 'react-hook-form';
 
 export const UserPageComponent = () => {
     const location = useLocation();
@@ -19,11 +20,13 @@ export const UserPageComponent = () => {
 
     const [editMode, setEditMode] = useState(false);
     const [updatedUser, setUpdatedUser] = useState<User>(user);
-    const [validInput, setValidInput] = useState(true);
 
     const users = useSelector((state: RootState) => state.users);
     const navigate = useNavigate()
     const goToHomePage = () => navigate('/')
+
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const onSubmit = () => console.log('ok')
 
     useEffect(() => {
         setUpdatedUser(user);
@@ -34,7 +37,6 @@ export const UserPageComponent = () => {
     ) => {
         const { name, value } = event.target;
         setUpdatedUser((updatedUser) => ({ ...updatedUser, [name]: value }));
-        setValidInput(value.trim() !== '');
     };
 
     const handleSave = () => {
@@ -46,9 +48,9 @@ export const UserPageComponent = () => {
     };
 
     const handleCancel = () => {
+        reset({})
         setUpdatedUser(user)
         setEditMode(false)
-        setValidInput(true)
     }
 
     const handleDeleteConfirmation = () => {
@@ -63,6 +65,7 @@ export const UserPageComponent = () => {
 
     return (
         <Center marginTop={20}>
+            <form onSubmit={handleSubmit(onSubmit)}>
             <Box maxWidth='700px' minWidth='350' borderWidth='2px' borderRadius='lg' overflow='hidden'>
                 <Avatar marginTop={10} name={`${updatedUser.firstName} ${updatedUser.lastName}`} />
                 <Stack spacing={3} justifyContent='center' p={5}>
@@ -74,6 +77,8 @@ export const UserPageComponent = () => {
                                 handleChange={handleChange}
                                 classStyle='modal'
                                 label='Inserisci lo userId (numero)'
+                                register={register}
+                                errors={errors}
                             />
                             <TextInputComponent
                                 inputValue={updatedUser.firstName}
@@ -81,6 +86,8 @@ export const UserPageComponent = () => {
                                 handleChange={handleChange}
                                 classStyle='modal'
                                 label='Inserisci il nome'
+                                register={register}
+                                errors={errors}
                             />
                             <TextInputComponent
                                 inputValue={updatedUser.lastName}
@@ -88,6 +95,8 @@ export const UserPageComponent = () => {
                                 handleChange={handleChange}
                                 classStyle='modal'
                                 label='Inserisci il cognome'
+                                register={register}
+                                errors={errors}
                             />
                             <DateInputComponent
                                 inputValue={updatedUser.birthDay}
@@ -95,6 +104,8 @@ export const UserPageComponent = () => {
                                 handleChange={handleChange}
                                 classStyle='modal'
                                 label='Inserisci la data di nascita'
+                                register={register}
+                                errors={errors}
                             />
                             <SelectInputComponent
                                 inputValue={updatedUser.company}
@@ -102,6 +113,8 @@ export const UserPageComponent = () => {
                                 handleChange={handleChange}
                                 classStyle='modal'
                                 label="Inserisci la compagnia"
+                                register={register}
+                                errors={errors}
                             />
                             <DateInputComponent
                                 inputValue={updatedUser.startDate}
@@ -109,6 +122,8 @@ export const UserPageComponent = () => {
                                 handleChange={handleChange}
                                 classStyle='modal'
                                 label='Inserisci la data di inizio'
+                                register={register}
+                                errors={errors}
                             />
                             <DateInputComponent
                                 inputValue={updatedUser.endDate}
@@ -116,6 +131,8 @@ export const UserPageComponent = () => {
                                 handleChange={handleChange}
                                 classStyle='modal'
                                 label='Inserisci la data di fine'
+                                register={register}
+                                errors={errors}
                             />
                             <TextInputComponent
                                 inputValue={updatedUser.addressOne}
@@ -123,6 +140,8 @@ export const UserPageComponent = () => {
                                 handleChange={handleChange}
                                 classStyle='modal'
                                 label='Inserisci il primo indirizzo'
+                                register={register}
+                                errors={errors}
                             />
                             <TextInputComponent
                                 inputValue={updatedUser.addressTwo}
@@ -130,6 +149,8 @@ export const UserPageComponent = () => {
                                 handleChange={handleChange}
                                 classStyle='modal'
                                 label='Inserisci il secondo indirizzo'
+                                register={register}
+                                errors={errors}
                             />
                             <TextInputComponent
                                 inputValue={updatedUser.city}
@@ -137,6 +158,8 @@ export const UserPageComponent = () => {
                                 handleChange={handleChange}
                                 classStyle='modal'
                                 label='Inserisci il comune'
+                                register={register}
+                                errors={errors}
                             />
                             <TextInputComponent
                                 inputValue={updatedUser.province}
@@ -144,6 +167,8 @@ export const UserPageComponent = () => {
                                 handleChange={handleChange}
                                 classStyle='modal'
                                 label='Inserisci la provincia'
+                                register={register}
+                                errors={errors}
                             />
                         </>
                     ) : (
@@ -166,7 +191,7 @@ export const UserPageComponent = () => {
                 <Stack direction='row' justifyContent='center' marginBottom={5} spacing={4}>
                     {editMode ?
                         <>
-                            <Button colorScheme='green' onClick={handleSave} isDisabled={!validInput}>Salva</Button>
+                            <Button colorScheme='green' isDisabled={Object.keys(errors).length > 0} type='submit'>Salva</Button>
                             <ConfirmationModalComponent handleDeleteConfirmation={handleDeleteConfirmation} />
                             <Button onClick={handleCancel}>Annulla</Button>
                         </>
@@ -178,6 +203,7 @@ export const UserPageComponent = () => {
                     }
                 </Stack>
             </Box>
+            </form>
         </Center>
     )
 }
