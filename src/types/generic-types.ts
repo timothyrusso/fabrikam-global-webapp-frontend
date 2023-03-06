@@ -34,7 +34,7 @@ export type SelectInputComponentProps = {
   name: string;
   handleChange: (event: ChangeEvent<HTMLSelectElement>) => void;
   classStyle?: string;
-  label?: any;
+  label?: string;
   isTableRow?: boolean;
   register?: any;
   errors?: any;

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ChangeEvent } from 'react';
 import { GenericInputComponentProps } from '../../types/generic-types';
 import { FormControl, FormLabel, Text } from '@chakra-ui/react';
 import { excludedTextInputNames } from '../../utils/constants';
@@ -24,7 +24,7 @@ export const TextInputComponent: FC<GenericInputComponentProps> = ({
         name={name}
         className={`input ${classStyle}`}
         {...register(name, {
-          onChange: (event: any) => handleChange(event),
+          onChange: (event: ChangeEvent<HTMLInputElement>) => handleChange(event),
           required: isRequired ? 'Campo obbligatorio' : false,
           maxLength: {
             value: 30,
@@ -32,7 +32,7 @@ export const TextInputComponent: FC<GenericInputComponentProps> = ({
           },
         })}
       />
-      {errors[name]?.message.length > 0 ? <Text color='red.500'>{errors[name]?.message}</Text> : null}
+      {errors[name]?.message.length > 0 ? <Text fontSize='md' color='red.500'>{errors[name]?.message}</Text> : null}
     </FormControl>
   );
 };

@@ -45,6 +45,7 @@ export const ModalComponent = () => {
 
   const handleCreate = () => {
     handleCreateUser(createdUser);
+    reset({})
     onClose();
   };
 

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ChangeEvent } from 'react';
 import { NumberInputComponentProps } from '../../types/generic-types';
 import { FormControl, FormLabel, Text } from '@chakra-ui/react';
 
@@ -27,7 +27,7 @@ export const NumberInputComponent: FC<NumberInputComponentProps> = ({
             maxLength="5"
             minLength="5"
             {...register(name, {
-              onChange: (event: any) => handleChange(event),
+              onChange: (event: ChangeEvent<HTMLInputElement>) => handleChange(event),
               required: 'Campo obbligatorio',
               minLength: {
                 value: 5,
@@ -35,7 +35,7 @@ export const NumberInputComponent: FC<NumberInputComponentProps> = ({
               },
             })}
           />
-          {errors[name]?.message.length > 0 ? <Text color='red.500'>{errors[name]?.message}</Text> : null}
+          {errors[name]?.message.length > 0 ? <Text fontSize='md' color='red.500'>{errors[name]?.message}</Text> : null}
     </FormControl>
   );
 };

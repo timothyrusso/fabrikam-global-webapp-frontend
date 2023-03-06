@@ -43,7 +43,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
   };
 
   const handleSave = () => {
-    if (updatedUser.userId > 0 && updatedUser.firstName !== '' && updatedUser.lastName !== '' && updatedUser.startDate !== '' && updatedUser.endDate !== null) {
+    if (Array.from(String(updatedUser.userId), Number).length === 5 && updatedUser.firstName !== '' && updatedUser.lastName !== '' && updatedUser.startDate !== '') {
       handleUpdateUser(updatedUser);
       setEditMode(false);
     } else {
@@ -138,7 +138,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
           </Td>
           <Td >
             <DateInputComponent
-              inputValue={updatedUser.endDate}
+              inputValue={updatedUser.endDate !== null ? updatedUser.endDate : ''}
               name="endDate"
               handleChange={handleChange}
               isTableRow={true}

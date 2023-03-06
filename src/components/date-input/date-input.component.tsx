@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ChangeEvent } from 'react';
 import { GenericInputComponentProps } from '../../types/generic-types';
 import { FormControl, FormLabel, Text } from '@chakra-ui/react';
 import { excludedDateInputNames } from '../../utils/constants';
@@ -27,11 +27,11 @@ export const DateInputComponent: FC<GenericInputComponentProps> = ({
         name={name}
         className={`input ${classStyle}`}
         {...register(name, {
-          onChange: (event: any) => handleChange(event),
+          onChange: (event: ChangeEvent<HTMLInputElement>) => handleChange(event),
           required: isRequired ? 'Campo obbligatorio' : false,
         })}
       />
-      {errors[name]?.message.length > 0 ? <Text color='red.500'>{errors[name]?.message}</Text> : null}
+      {errors[name]?.message.length > 0 ? <Text fontSize='md' color='red.500'>{errors[name]?.message}</Text> : null}
     </FormControl>
   );
 };

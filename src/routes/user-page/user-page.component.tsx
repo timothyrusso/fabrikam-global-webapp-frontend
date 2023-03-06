@@ -26,7 +26,7 @@ export const UserPageComponent = () => {
     const goToHomePage = () => navigate('/')
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
-    const onSubmit = () => console.log('ok')
+    const onSubmit = () => handleSave()
 
     useEffect(() => {
         setUpdatedUser(user);
@@ -126,7 +126,7 @@ export const UserPageComponent = () => {
                                 errors={errors}
                             />
                             <DateInputComponent
-                                inputValue={updatedUser.endDate}
+                                inputValue={updatedUser.endDate !== null ? updatedUser.endDate : ''}
                                 name="endDate"
                                 handleChange={handleChange}
                                 classStyle='modal'
@@ -135,7 +135,7 @@ export const UserPageComponent = () => {
                                 errors={errors}
                             />
                             <TextInputComponent
-                                inputValue={updatedUser.addressOne}
+                                inputValue={updatedUser.addressOne !== null ? updatedUser.addressOne : ''}
                                 name="addressOne"
                                 handleChange={handleChange}
                                 classStyle='modal'
@@ -144,7 +144,7 @@ export const UserPageComponent = () => {
                                 errors={errors}
                             />
                             <TextInputComponent
-                                inputValue={updatedUser.addressTwo}
+                                inputValue={updatedUser.addressTwo !== null ? updatedUser.addressTwo : ''}
                                 name="addressTwo"
                                 handleChange={handleChange}
                                 classStyle='modal'
@@ -153,7 +153,7 @@ export const UserPageComponent = () => {
                                 errors={errors}
                             />
                             <TextInputComponent
-                                inputValue={updatedUser.city}
+                                inputValue={updatedUser.city !== null ? updatedUser.city : ''}
                                 name="city"
                                 handleChange={handleChange}
                                 classStyle='modal'
@@ -162,7 +162,7 @@ export const UserPageComponent = () => {
                                 errors={errors}
                             />
                             <TextInputComponent
-                                inputValue={updatedUser.province}
+                                inputValue={updatedUser.province !== null ? updatedUser.province : ''}
                                 name="province"
                                 handleChange={handleChange}
                                 classStyle='modal'
@@ -197,8 +197,9 @@ export const UserPageComponent = () => {
                         </>
                         :
                         <>
-                            <Button colorScheme='blue' onClick={() => setEditMode(true)}>Modifica</Button>
                             <Button onClick={() => navigate('/')}>Torna indietro</Button>
+                            <Button colorScheme='blue' onClick={() => setEditMode(true)} type='button'>Modifica</Button>
+                            
                         </>
                     }
                 </Stack>
