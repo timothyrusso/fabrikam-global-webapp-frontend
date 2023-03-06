@@ -1,5 +1,5 @@
-import { BASE_URL } from './constants';
-import { User } from './generic-types';
+import { BASE_URL } from '../utils/constants';
+import { User } from '../types/generic-types';
 
 const checkResponse = <T>(res: Response): Promise<T> => {
   if (res.ok) {

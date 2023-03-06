@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
 import { UserActionTypes } from './action.helpers';
-import { User } from '../utils/generic-types';
+import { User } from '../types/generic-types';
 
 export type RootState = {
     users: User[];

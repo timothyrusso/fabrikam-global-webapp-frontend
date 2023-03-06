@@ -6,7 +6,7 @@ import { DateInputComponent } from "../../components/date-input/date-input.compo
 import { useState, ChangeEvent, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { formatDateString } from "../../utils/helpers"
-import { User } from "../../utils/generic-types"
+import { User } from "../../types/generic-types"
 import { ConfirmationModalComponent } from "../../components/confirmation-modal/confirmation-modal.component"
 import { useSelector } from "react-redux"
 import { RootState } from "../../redux/store"

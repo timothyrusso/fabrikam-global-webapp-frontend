@@ -5,7 +5,7 @@ import { SpinnerComponent } from '../spinner/spinner.component';
 import { UserPageComponent } from '../../routes/user-page/user-page.component';
 import {
   getAllUsers,
-} from '../../utils/api';
+} from '../../api/api';
 import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { toastFetchError } from '../../utils/toast.config';

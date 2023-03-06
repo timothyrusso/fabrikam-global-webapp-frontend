@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { SelectInputComponentProps } from '../../utils/generic-types';
+import { SelectInputComponentProps } from '../../types/generic-types';
 import { FormControl, FormLabel } from '@chakra-ui/react';
 
 export const SelectInputComponent: FC<SelectInputComponentProps> = ({

@@ -1,5 +1,5 @@
 import { FETCH_USERS, UPDATE_USER, DELETE_USER } from "./action.types";
-import { User } from "../utils/generic-types";
+import { User } from "../types/generic-types";
 
 type FetchUsersAction = {
     type: typeof FETCH_USERS;

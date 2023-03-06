@@ -1,7 +1,7 @@
 import { Tr, Td, IconButton, ButtonGroup } from '@chakra-ui/react';
 import { EditIcon, CloseIcon, CheckIcon } from '@chakra-ui/icons';
 import { FC, useState, ChangeEvent } from 'react';
-import { User } from '../../utils/generic-types';
+import { User } from '../../types/generic-types';
 import { DateInputComponent } from '../date-input/date-input.component';
 import { NumberInputComponent } from '../number-input/number-input.component';
 import { TextInputComponent } from '../text-input/text-input.component';

@@ -1,4 +1,4 @@
-import { User } from "./generic-types";
+import { User } from "../types/generic-types";
 
 export const BASE_URL =
   'https://fabrikam-global-webapp.onrender.com';

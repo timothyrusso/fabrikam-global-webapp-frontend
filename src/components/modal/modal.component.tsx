@@ -14,7 +14,7 @@ import { DateInputComponent } from '../date-input/date-input.component';
 import { NumberInputComponent } from '../number-input/number-input.component';
 import { SelectInputComponent } from '../select-input/select-input.component';
 import { TextInputComponent } from '../text-input/text-input.component';
-import { User } from '../../utils/generic-types';
+import { User } from '../../types/generic-types';
 import { selectDefaultValue } from '../../utils/constants';
 import { useFabrikamApi } from '../../hooks/useFabrikamApi';
 import './modal.style.css';

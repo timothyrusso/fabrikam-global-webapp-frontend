@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { GenericInputComponentProps } from '../../utils/generic-types';
+import { GenericInputComponentProps } from '../../types/generic-types';
 import { FormControl, FormLabel } from '@chakra-ui/react';
 
 export const DateInputComponent: FC<GenericInputComponentProps> = ({

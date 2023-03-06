@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { NumberInputComponentProps } from '../../utils/generic-types';
+import { NumberInputComponentProps } from '../../types/generic-types';
 import { FormControl, FormLabel } from '@chakra-ui/react';
 
 export const NumberInputComponent: FC<NumberInputComponentProps> = ({

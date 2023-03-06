@@ -1,7 +1,7 @@
-import { User } from "../utils/generic-types";
+import { User } from "../types/generic-types";
 import { useDispatch } from "react-redux";
 import { useToast } from "@chakra-ui/react";
-import { updateUser, deleteUser, createUser, getAllUsers } from "../utils/api";
+import { updateUser, deleteUser, createUser, getAllUsers } from "../api/api";
 import { toastUpdateSuccess, toastGenericError, toastDeleteSuccess, toastCreateSuccess } from "../utils/toast.config";
 
 export const useFabrikamApi = () => {
