@@ -15,13 +15,14 @@ export const TextInputComponent: FC<GenericInputComponentProps> = ({
 }) => {
   const isRequired = !excludedTextInputNames.includes(name);
 
+  const errorMessage = errors[name]?.message?.toString()
+
   return (
     <FormControl mt={isTableRow ? 0 : 4}>
       {label ? <FormLabel htmlFor={name}>{label}</FormLabel> : null}
       <input
         id={name}
         value={inputValue}
-        name={name}
         className={`input ${classStyle}`}
         {...register(name, {
           onChange: (event: ChangeEvent<HTMLInputElement>) => handleChange(event),
@@ -32,7 +33,7 @@ export const TextInputComponent: FC<GenericInputComponentProps> = ({
           },
         })}
       />
-      {errors[name]?.message.length > 0 ? <Text fontSize='md' color='red.500'>{errors[name]?.message}</Text> : null}
+      {errors[name] ? <Text fontSize='md' color='red.500'>{errorMessage}</Text> : null}
     </FormControl>
   );
 };

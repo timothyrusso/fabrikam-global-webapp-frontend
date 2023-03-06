@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import { RegisterOptions, FieldErrors } from 'react-hook-form';
+import { UseFormRegister, FieldErrors, FieldValues } from 'react-hook-form';
 
 export type User = {
   id: number;
@@ -25,8 +25,8 @@ export type GenericInputComponentProps = {
   classStyle?: string;
   label?: string;
   isTableRow?: boolean;
-  register?: any;
-  errors?: any;
+  register: UseFormRegister<FieldValues>
+  errors: FieldErrors<FieldValues>
 };
 
 export type SelectInputComponentProps = {
@@ -36,8 +36,8 @@ export type SelectInputComponentProps = {
   classStyle?: string;
   label?: string;
   isTableRow?: boolean;
-  register?: any;
-  errors?: any;
+  register: UseFormRegister<FieldValues>
+  errors: FieldErrors<FieldValues>
 };
 
 export type NumberInputComponentProps = {
@@ -47,6 +47,6 @@ export type NumberInputComponentProps = {
   classStyle?: string;
   label?: string;
   isTableRow?: boolean;
-  register?: any;
-  errors?: any;
+  register: UseFormRegister<FieldValues>
+  errors: FieldErrors<FieldValues>
 };

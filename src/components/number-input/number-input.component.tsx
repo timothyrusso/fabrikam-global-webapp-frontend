@@ -12,6 +12,8 @@ export const NumberInputComponent: FC<NumberInputComponentProps> = ({
   register,
   errors
 }) => {
+  const errorMessage = errors[name]?.message?.toString()
+
   return (
     <FormControl mt={isTableRow ? 0 : 4}>
       {label ? <FormLabel htmlFor={name}>{label}</FormLabel> : null}
@@ -24,8 +26,8 @@ export const NumberInputComponent: FC<NumberInputComponentProps> = ({
             id={name}
             className={`input ${classStyle}`}
             value={inputValue}
-            maxLength="5"
-            minLength="5"
+            maxLength={5}
+            minLength={5}
             {...register(name, {
               onChange: (event: ChangeEvent<HTMLInputElement>) => handleChange(event),
               required: 'Campo obbligatorio',
@@ -35,7 +37,7 @@ export const NumberInputComponent: FC<NumberInputComponentProps> = ({
               },
             })}
           />
-          {errors[name]?.message.length > 0 ? <Text fontSize='md' color='red.500'>{errors[name]?.message}</Text> : null}
+          {errors[name] ? <Text fontSize='md' color='red.500'>{errorMessage}</Text> : null}
     </FormControl>
   );
 };

@@ -15,6 +15,8 @@ export const DateInputComponent: FC<GenericInputComponentProps> = ({
 }) => {
   const isRequired = !excludedDateInputNames.includes(name);
 
+  const errorMessage = errors[name]?.message?.toString()
+
   return (
     <FormControl mt={isTableRow ? 0 : 4}>
       {label ? <FormLabel htmlFor={name}>{label}</FormLabel> : null}
@@ -24,14 +26,13 @@ export const DateInputComponent: FC<GenericInputComponentProps> = ({
         type="date"
         min="1900-01-01"
         max="2100-12-31"
-        name={name}
         className={`input ${classStyle}`}
         {...register(name, {
           onChange: (event: ChangeEvent<HTMLInputElement>) => handleChange(event),
           required: isRequired ? 'Campo obbligatorio' : false,
         })}
       />
-      {errors[name]?.message.length > 0 ? <Text fontSize='md' color='red.500'>{errors[name]?.message}</Text> : null}
+      {errors[name] ? <Text fontSize='md' color='red.500'>{errorMessage}</Text> : null}
     </FormControl>
   );
 };

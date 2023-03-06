@@ -12,6 +12,7 @@ export const SelectInputComponent: FC<SelectInputComponentProps> = ({
   register,
   errors
 }) => {
+  const errorMessage = errors[name]?.message?.toString()
 
   return (
     <FormControl mt={isTableRow ? 0 : 4}>
@@ -20,7 +21,6 @@ export const SelectInputComponent: FC<SelectInputComponentProps> = ({
         id={name}
         placeholder="Seleziona azienda"
         value={inputValue}
-        name={name}
         className={`input ${classStyle}`}
         {...register(name, {
           onChange: (event: ChangeEvent<HTMLSelectElement>) => handleChange(event),
@@ -31,7 +31,7 @@ export const SelectInputComponent: FC<SelectInputComponentProps> = ({
         <option value='FabrikStore'>FabrikStore</option>
         <option value='Fabrikam'>Fabrikam</option>
       </select>
-      {errors[name]?.message.length > 0 ? <Text fontSize='md' color='red.500'>{errors[name]?.message}</Text> : null}
+      {errors[name] ? <Text fontSize='md' color='red.500'>{errorMessage}</Text> : null}
     </FormControl>
   );
 };
