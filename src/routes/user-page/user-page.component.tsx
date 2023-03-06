@@ -66,9 +66,9 @@ export const UserPageComponent = () => {
     return (
         <Center marginTop={20}>
             <form onSubmit={handleSubmit(onSubmit)}>
-            <Box maxWidth='700px' minWidth='350' borderWidth='2px' borderRadius='lg' overflow='hidden'>
-                <Avatar marginTop={10} name={`${updatedUser.firstName} ${updatedUser.lastName}`} />
-                <Stack spacing={3} justifyContent='center' p={5}>
+            <Box maxWidth='700px' borderWidth='2px' borderRadius='lg' overflow='hidden' minWidth={{ md: '700px', base: '350px' }} textAlign={{ md: 'start', base: 'center' }}>
+                <Avatar marginTop={10} marginLeft={{ md: 5, base: 0 }} name={`${updatedUser.firstName} ${updatedUser.lastName}`}/>
+                <Stack spacing={3} p={5}>
                     {editMode ? (
                         <>
                             <NumberInputComponent
@@ -188,7 +188,7 @@ export const UserPageComponent = () => {
                         </>
                     )}
                 </Stack>
-                <Stack direction='row' justifyContent='center' marginBottom={5} spacing={4}>
+                <Stack direction='row' marginBottom={5} spacing={4} justifyContent={{ md: 'end', base: 'center' }} marginRight={{ md: 5, base: 0 }}>
                     {editMode ?
                         <>
                             <Button colorScheme='green' isDisabled={Object.keys(errors).length > 0} type='submit'>Salva</Button>
