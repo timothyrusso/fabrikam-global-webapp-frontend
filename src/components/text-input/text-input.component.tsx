@@ -17,6 +17,17 @@ export const TextInputComponent: FC<GenericInputComponentProps> = ({
 
   const errorMessage = errors[name]?.message?.toString()
 
+  const containsDigits = /\d/;
+
+  const validateInput = (value: string) => {
+      if (name === 'firstName' || name === 'lastName') {
+        if (containsDigits.test(value)) {
+          return 'Il campo non deve contenere numeri';
+        }
+      }
+      return true;
+    };
+
   return (
     <FormControl mt={isTableRow ? 0 : 4}>
       {label ? <FormLabel htmlFor={name}>{label}</FormLabel> : null}
@@ -31,6 +42,7 @@ export const TextInputComponent: FC<GenericInputComponentProps> = ({
             value: 30,
             message: 'Inserire massimo 30 caratteri'
           },
+          validate: validateInput,
         })}
       />
       {errors[name] ? <Text fontSize='md' color='red.500'>{errorMessage}</Text> : null}

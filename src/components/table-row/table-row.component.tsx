@@ -34,6 +34,10 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
 
   const { register, formState: { errors } } = useForm();
 
+  const nameRegex = /\d/;
+  const firstNameIsValid = !nameRegex.test(updatedUser.firstName) && updatedUser.firstName !== ''
+  const lastNameIsValid = !nameRegex.test(updatedUser.lastName) && updatedUser.lastName !== ''
+
   const handleChange = (
     event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
   ) => {
@@ -43,7 +47,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
   };
 
   const handleSave = () => {
-    if (Array.from(String(updatedUser.userId), Number).length === 5 && updatedUser.firstName !== '' && updatedUser.lastName !== '' && updatedUser.startDate !== '') {
+    if (Array.from(String(updatedUser.userId), Number).length === 5 && firstNameIsValid && lastNameIsValid && updatedUser.startDate !== '') {
       handleUpdateUser(updatedUser);
       setEditMode(false);
     } else {
@@ -161,7 +165,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
       <Td>
         <ButtonGroup size="sm" isAttached variant="outline">
           {editMode && (
-            <>{!validInput ? <Tooltip label='Compila tutti i campi obbligatori'>
+            <>{!validInput ? <Tooltip label='Verifica che i campi siano compilati correttamente'>
               <IconButton
                 aria-label="Save user"
                 icon={<CheckIcon />}
