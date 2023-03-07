@@ -6,6 +6,7 @@ import {
   Th,
   TableContainer,
   Stack,
+  Text
 } from '@chakra-ui/react';
 import { TableRowComponent } from '../table-row/table-row.component';
 import { ModalComponent } from '../modal/modal.component';
@@ -20,7 +21,7 @@ export const TableComponent = () => {
       <Stack direction="row" align="center" marginBottom={5}>
         <ModalComponent />
       </Stack>
-      <Table variant="unstyled" border="2px" borderColor="gray.200">
+      {users.length > 0 ? <Table variant="unstyled" border="2px" borderColor="gray.200">
         <Thead>
           <Tr>
             <Th>Id dipendente</Th>
@@ -35,12 +36,13 @@ export const TableComponent = () => {
         </Thead>
         <Tbody>
           {users.map((user) => <TableRowComponent
-                key={user.id.toString()}
-                user={user}
-              />
-              )}
+            key={user.id.toString()}
+            user={user}
+          />
+          )}
         </Tbody>
-      </Table>
+      </Table> :
+        <Text fontSize='4xl'>Nessun dato disponibile</Text>}
     </TableContainer>
   );
 };
