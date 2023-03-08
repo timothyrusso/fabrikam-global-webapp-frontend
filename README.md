@@ -1,14 +1,14 @@
 # Fabrikam Global
 
-This project is a full stack web application built with React.js, TypeScript, Redux, Chakra UI, Node.js, Express.js and Microsoft SQL.
+This project is a full stack web application built with React.js, TypeScript, Redux, Chakra UI, React Hook Form, Node.js, Express.js and Microsoft SQL.
 
-In this application you can add, modify and remove users and handle them with a basic and simple UI.
+In this application you can add, modify and remove users with a basic and simple UI.
 
 ## How to run it locally
 
 - Clone the repository
 - Install the dependencies `npm install` or `yarn`
-- Run the server `npm run start`
+- Run the application `npm run start`
 
 ## Hosting
 
