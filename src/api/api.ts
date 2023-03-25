@@ -23,7 +23,7 @@ export const getAllUsers = (): Promise<User[]> => {
 };
 
 export const createUser = (userData: User): Promise<User> => {
-  const { 
+  const {
     firstName,
     lastName,
     birthDay,
@@ -34,7 +34,7 @@ export const createUser = (userData: User): Promise<User> => {
     addressTwo,
     city,
     province,
-    userId
+    userId,
   } = userData;
 
   return fetch(`${BASE_URL}`, {
@@ -59,7 +59,7 @@ export const createUser = (userData: User): Promise<User> => {
 };
 
 export const updateUser = (userData: User): Promise<User> => {
-  const { 
+  const {
     firstName,
     lastName,
     birthDay,
@@ -71,7 +71,7 @@ export const updateUser = (userData: User): Promise<User> => {
     city,
     province,
     userId,
-    id
+    id,
   } = userData;
 
   return fetch(`${BASE_URL}/${id}`, {

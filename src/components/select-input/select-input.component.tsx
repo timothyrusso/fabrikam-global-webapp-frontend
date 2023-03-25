@@ -10,9 +10,9 @@ export const SelectInputComponent: FC<SelectInputComponentProps> = ({
   label,
   isTableRow,
   register,
-  errors
+  errors,
 }) => {
-  const errorMessage = errors[name]?.message?.toString()
+  const errorMessage = errors[name]?.message?.toString();
 
   return (
     <FormControl mt={isTableRow ? 0 : 4}>
@@ -23,15 +23,20 @@ export const SelectInputComponent: FC<SelectInputComponentProps> = ({
         value={inputValue}
         className={`input ${classStyle}`}
         {...register(name, {
-          onChange: (event: ChangeEvent<HTMLSelectElement>) => handleChange(event),
+          onChange: (event: ChangeEvent<HTMLSelectElement>) =>
+            handleChange(event),
           required: 'Campo obbligatorio',
         })}
       >
-        <option value='FabrikDistribution'>FabrikDistribution</option>
-        <option value='FabrikStore'>FabrikStore</option>
-        <option value='Fabrikam'>Fabrikam</option>
+        <option value="FabrikDistribution">FabrikDistribution</option>
+        <option value="FabrikStore">FabrikStore</option>
+        <option value="Fabrikam">Fabrikam</option>
       </select>
-      {errors[name] ? <Text fontSize='md' color='red.500'>{errorMessage}</Text> : null}
+      {errors[name] ? (
+        <Text fontSize="md" color="red.500">
+          {errorMessage}
+        </Text>
+      ) : null}
     </FormControl>
   );
 };

@@ -27,13 +27,20 @@ export const ConfirmationModalComponent: FC<
         aria-label="Remove user"
         icon={<DeleteIcon />}
         onClick={onOpen}
-        _hover={{ color: "black" }}
+        _hover={{ color: 'black' }}
       />
 
-      <Modal isOpen={isOpen} onClose={onClose} isCentered aria-labelledby="delete-confirmation-modal">
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered
+        aria-labelledby="delete-confirmation-modal"
+      >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader id="delete-confirmation-modal">Sicuro di voler cancellare?</ModalHeader>
+          <ModalHeader id="delete-confirmation-modal">
+            Sicuro di voler cancellare?
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody></ModalBody>
 

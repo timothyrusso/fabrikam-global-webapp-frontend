@@ -11,11 +11,11 @@ export const DateInputComponent: FC<GenericInputComponentProps> = ({
   label,
   isTableRow,
   register,
-  errors
+  errors,
 }) => {
   const isRequired = !excludedDateInputNames.includes(name);
 
-  const errorMessage = errors[name]?.message?.toString()
+  const errorMessage = errors[name]?.message?.toString();
 
   return (
     <FormControl mt={isTableRow ? 0 : 4}>
@@ -28,11 +28,16 @@ export const DateInputComponent: FC<GenericInputComponentProps> = ({
         max="2100-12-31"
         className={`input ${classStyle}`}
         {...register(name, {
-          onChange: (event: ChangeEvent<HTMLInputElement>) => handleChange(event),
+          onChange: (event: ChangeEvent<HTMLInputElement>) =>
+            handleChange(event),
           required: isRequired ? 'Campo obbligatorio' : false,
         })}
       />
-      {errors[name] ? <Text fontSize='md' color='red.500'>{errorMessage}</Text> : null}
+      {errors[name] ? (
+        <Text fontSize="md" color="red.500">
+          {errorMessage}
+        </Text>
+      ) : null}
     </FormControl>
   );
 };

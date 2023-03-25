@@ -11,22 +11,22 @@ export const TextInputComponent: FC<GenericInputComponentProps> = ({
   label,
   isTableRow,
   register,
-  errors
+  errors,
 }) => {
   const isRequired = !excludedTextInputNames.includes(name);
 
-  const errorMessage = errors[name]?.message?.toString()
+  const errorMessage = errors[name]?.message?.toString();
 
   const containsDigits = /\d/;
 
   const validateInput = (value: string) => {
-      if (name === 'firstName' || name === 'lastName') {
-        if (containsDigits.test(value)) {
-          return 'Il campo non deve contenere numeri';
-        }
+    if (name === 'firstName' || name === 'lastName') {
+      if (containsDigits.test(value)) {
+        return 'Il campo non deve contenere numeri';
       }
-      return true;
-    };
+    }
+    return true;
+  };
 
   return (
     <FormControl mt={isTableRow ? 0 : 4}>
@@ -36,16 +36,21 @@ export const TextInputComponent: FC<GenericInputComponentProps> = ({
         value={inputValue}
         className={`input ${classStyle}`}
         {...register(name, {
-          onChange: (event: ChangeEvent<HTMLInputElement>) => handleChange(event),
+          onChange: (event: ChangeEvent<HTMLInputElement>) =>
+            handleChange(event),
           required: isRequired ? 'Campo obbligatorio' : false,
           maxLength: {
             value: 30,
-            message: 'Inserire massimo 30 caratteri'
+            message: 'Inserire massimo 30 caratteri',
           },
           validate: validateInput,
         })}
       />
-      {errors[name] ? <Text fontSize='md' color='red.500'>{errorMessage}</Text> : null}
+      {errors[name] ? (
+        <Text fontSize="md" color="red.500">
+          {errorMessage}
+        </Text>
+      ) : null}
     </FormControl>
   );
 };

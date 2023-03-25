@@ -24,8 +24,13 @@ export const ModalComponent = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [createdUser, setCreatedUser] = useState<User>(selectDefaultValue);
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
-  const onSubmit = () => handleCreate()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+  const onSubmit = () => handleCreate();
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
@@ -41,39 +46,35 @@ export const ModalComponent = () => {
     }
   };
 
-  const { handleCreateUser } = useFabrikamApi()
+  const { handleCreateUser } = useFabrikamApi();
 
   const handleCreate = () => {
     handleCreateUser(createdUser);
-    reset({})
+    reset({});
     onClose();
   };
 
   const handleCancel = () => {
-    reset({})
-    onClose()
-  }
- 
+    reset({});
+    onClose();
+  };
+
   return (
     <>
       <Button onClick={onOpen} colorScheme="green" size="lg" variant="outline">
         Aggiungi utente
       </Button>
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        isCentered
-      >
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
           <form onSubmit={handleSubmit(onSubmit)}>
-          <ModalHeader>Aggiungi nuovo utente</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={6}>
+            <ModalHeader>Aggiungi nuovo utente</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody pb={6}>
               <NumberInputComponent
                 name="userId"
                 classStyle="modal"
-                label='Inserisci lo userId (numero)'
+                label="Inserisci lo userId (numero)"
                 handleChange={handleChange}
                 register={register}
                 errors={errors}
@@ -82,7 +83,7 @@ export const ModalComponent = () => {
                 name="firstName"
                 handleChange={handleChange}
                 classStyle="modal"
-                label='Inserisci il nome'
+                label="Inserisci il nome"
                 register={register}
                 errors={errors}
               />
@@ -90,7 +91,7 @@ export const ModalComponent = () => {
                 name="lastName"
                 handleChange={handleChange}
                 classStyle="modal"
-                label='Inserisci il cognome'
+                label="Inserisci il cognome"
                 register={register}
                 errors={errors}
               />
@@ -98,7 +99,7 @@ export const ModalComponent = () => {
                 handleChange={handleChange}
                 name="birthDay"
                 classStyle="modal"
-                label='Inserisci la data di nascita'
+                label="Inserisci la data di nascita"
                 register={register}
                 errors={errors}
               />
@@ -114,16 +115,22 @@ export const ModalComponent = () => {
                 handleChange={handleChange}
                 name="startDate"
                 classStyle="modal"
-                label='Inserisci la data di inizio'
+                label="Inserisci la data di inizio"
                 register={register}
                 errors={errors}
               />
-          </ModalBody>
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} type='submit' isDisabled={Object.keys(errors).length > 0}>Salva
-            </Button>
-            <Button onClick={handleCancel}>Annulla</Button>
-          </ModalFooter>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                colorScheme="blue"
+                mr={3}
+                type="submit"
+                isDisabled={Object.keys(errors).length > 0}
+              >
+                Salva
+              </Button>
+              <Button onClick={handleCancel}>Annulla</Button>
+            </ModalFooter>
           </form>
         </ModalContent>
       </Modal>

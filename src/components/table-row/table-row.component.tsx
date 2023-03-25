@@ -17,14 +17,12 @@ export type TableRowComponentProps = {
   user: User;
 };
 
-export const TableRowComponent: FC<TableRowComponentProps> = ({
-  user,
-}) => {
+export const TableRowComponent: FC<TableRowComponentProps> = ({ user }) => {
   const [editMode, setEditMode] = useState(false);
   const [updatedUser, setUpdatedUser] = useState(user);
   const [validInput, setValidInput] = useState(true);
 
-  const { handleUpdateUser, handleDeleteUser } = useFabrikamApi()
+  const { handleUpdateUser, handleDeleteUser } = useFabrikamApi();
 
   const navigate = useNavigate();
 
@@ -32,11 +30,16 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
     navigate(`/detail-page/${user.id}`, { state: { user } });
   };
 
-  const { register, formState: { errors } } = useForm();
+  const {
+    register,
+    formState: { errors },
+  } = useForm();
 
   const nameRegex = /\d/;
-  const firstNameIsValid = !nameRegex.test(updatedUser.firstName) && updatedUser.firstName !== ''
-  const lastNameIsValid = !nameRegex.test(updatedUser.lastName) && updatedUser.lastName !== ''
+  const firstNameIsValid =
+    !nameRegex.test(updatedUser.firstName) && updatedUser.firstName !== '';
+  const lastNameIsValid =
+    !nameRegex.test(updatedUser.lastName) && updatedUser.lastName !== '';
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
@@ -47,11 +50,16 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
   };
 
   const handleSave = () => {
-    if (Array.from(String(updatedUser.userId), Number).length === 5 && firstNameIsValid && lastNameIsValid && updatedUser.startDate !== '') {
+    if (
+      Array.from(String(updatedUser.userId), Number).length === 5 &&
+      firstNameIsValid &&
+      lastNameIsValid &&
+      updatedUser.startDate !== ''
+    ) {
       handleUpdateUser(updatedUser);
       setEditMode(false);
     } else {
-      setValidInput(false)
+      setValidInput(false);
     }
   };
 
@@ -61,26 +69,33 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
   };
 
   const handleCancel = () => {
-    setUpdatedUser(user)
-    setEditMode(false)
-    setValidInput(true)
-  }
+    setUpdatedUser(user);
+    setEditMode(false);
+    setValidInput(true);
+  };
 
   const handleDeleteConfirmation = () => {
     handleDelete();
   };
 
   return (
-    <Tr _hover={!editMode ? {
-      background: "cyan",
-      color: "black",
-    } : {
-      background: "transparent",
-      color: "blue.500",
-    }} cursor='pointer'>
+    <Tr
+      _hover={
+        !editMode
+          ? {
+              background: 'cyan',
+              color: 'black',
+            }
+          : {
+              background: 'transparent',
+              color: 'blue.500',
+            }
+      }
+      cursor="pointer"
+    >
       {editMode ? (
         <>
-          <Td >
+          <Td>
             <NumberInputComponent
               inputValue={updatedUser.userId}
               name="userId"
@@ -90,7 +105,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               errors={errors}
             />
           </Td>
-          <Td >
+          <Td>
             <TextInputComponent
               inputValue={updatedUser.firstName}
               name="firstName"
@@ -100,7 +115,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               errors={errors}
             />
           </Td>
-          <Td >
+          <Td>
             <TextInputComponent
               inputValue={updatedUser.lastName}
               name="lastName"
@@ -110,7 +125,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               errors={errors}
             />
           </Td>
-          <Td >
+          <Td>
             <DateInputComponent
               inputValue={updatedUser.birthDay}
               name="birthDay"
@@ -120,7 +135,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               errors={errors}
             />
           </Td>
-          <Td >
+          <Td>
             <SelectInputComponent
               inputValue={updatedUser.company}
               name="company"
@@ -130,7 +145,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               errors={errors}
             />
           </Td>
-          <Td >
+          <Td>
             <DateInputComponent
               inputValue={updatedUser.startDate}
               name="startDate"
@@ -140,9 +155,11 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
               errors={errors}
             />
           </Td>
-          <Td >
+          <Td>
             <DateInputComponent
-              inputValue={updatedUser.endDate !== null ? updatedUser.endDate : ''}
+              inputValue={
+                updatedUser.endDate !== null ? updatedUser.endDate : ''
+              }
               name="endDate"
               handleChange={handleChange}
               isTableRow={true}
@@ -153,31 +170,57 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
         </>
       ) : (
         <>
-          <TableUnitComponent inputValue={updatedUser.userId} handleTableRowClick={() => handleTableRowClick(user)} />
-          <TableUnitComponent inputValue={updatedUser.firstName} handleTableRowClick={() => handleTableRowClick(user)} />
-          <TableUnitComponent inputValue={updatedUser.lastName} handleTableRowClick={() => handleTableRowClick(user)} />
-          <TableUnitComponent inputValue={updatedUser.birthDay} handleTableRowClick={() => handleTableRowClick(user)} />
-          <TableUnitComponent inputValue={updatedUser.company} handleTableRowClick={() => handleTableRowClick(user)} />
-          <TableUnitComponent inputValue={updatedUser.startDate} handleTableRowClick={() => handleTableRowClick(user)} />
-          <TableUnitComponent inputValue={updatedUser.endDate} handleTableRowClick={() => handleTableRowClick(user)} />
+          <TableUnitComponent
+            inputValue={updatedUser.userId}
+            handleTableRowClick={() => handleTableRowClick(user)}
+          />
+          <TableUnitComponent
+            inputValue={updatedUser.firstName}
+            handleTableRowClick={() => handleTableRowClick(user)}
+          />
+          <TableUnitComponent
+            inputValue={updatedUser.lastName}
+            handleTableRowClick={() => handleTableRowClick(user)}
+          />
+          <TableUnitComponent
+            inputValue={updatedUser.birthDay}
+            handleTableRowClick={() => handleTableRowClick(user)}
+          />
+          <TableUnitComponent
+            inputValue={updatedUser.company}
+            handleTableRowClick={() => handleTableRowClick(user)}
+          />
+          <TableUnitComponent
+            inputValue={updatedUser.startDate}
+            handleTableRowClick={() => handleTableRowClick(user)}
+          />
+          <TableUnitComponent
+            inputValue={updatedUser.endDate}
+            handleTableRowClick={() => handleTableRowClick(user)}
+          />
         </>
       )}
       <Td>
         <ButtonGroup size="sm" isAttached variant="outline">
           {editMode && (
-            <>{!validInput ? <Tooltip label='Verifica che i campi siano compilati correttamente'>
-              <IconButton
-                aria-label="Save user"
-                icon={<CheckIcon />}
-                onClick={handleSave}
-                isDisabled={!validInput}
-              />
-            </Tooltip> : <IconButton
-              aria-label="Save user"
-              icon={<CheckIcon />}
-              onClick={handleSave}
-              isDisabled={!validInput}
-            />}
+            <>
+              {!validInput ? (
+                <Tooltip label="Verifica che i campi siano compilati correttamente">
+                  <IconButton
+                    aria-label="Save user"
+                    icon={<CheckIcon />}
+                    onClick={handleSave}
+                    isDisabled={!validInput}
+                  />
+                </Tooltip>
+              ) : (
+                <IconButton
+                  aria-label="Save user"
+                  icon={<CheckIcon />}
+                  onClick={handleSave}
+                  isDisabled={!validInput}
+                />
+              )}
 
               <IconButton
                 aria-label="Close edit mode"
@@ -192,7 +235,7 @@ export const TableRowComponent: FC<TableRowComponentProps> = ({
                 aria-label="Update user"
                 icon={<EditIcon />}
                 onClick={() => setEditMode(true)}
-                _hover={{ color: "black" }}
+                _hover={{ color: 'black' }}
               />
               <ConfirmationModalComponent
                 handleDeleteConfirmation={handleDeleteConfirmation}

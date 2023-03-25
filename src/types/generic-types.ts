@@ -25,8 +25,8 @@ export type GenericInputComponentProps = {
   classStyle?: string;
   label?: string;
   isTableRow?: boolean;
-  register: UseFormRegister<FieldValues>
-  errors: FieldErrors<FieldValues>
+  register: UseFormRegister<FieldValues>;
+  errors: FieldErrors<FieldValues>;
 };
 
 export type SelectInputComponentProps = {
@@ -36,8 +36,8 @@ export type SelectInputComponentProps = {
   classStyle?: string;
   label?: string;
   isTableRow?: boolean;
-  register: UseFormRegister<FieldValues>
-  errors: FieldErrors<FieldValues>
+  register: UseFormRegister<FieldValues>;
+  errors: FieldErrors<FieldValues>;
 };
 
 export type NumberInputComponentProps = {
@@ -47,6 +47,6 @@ export type NumberInputComponentProps = {
   classStyle?: string;
   label?: string;
   isTableRow?: boolean;
-  register: UseFormRegister<FieldValues>
-  errors: FieldErrors<FieldValues>
+  register: UseFormRegister<FieldValues>;
+  errors: FieldErrors<FieldValues>;
 };
