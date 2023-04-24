@@ -1,6 +1,6 @@
 # Fabrikam Global
 
-Fabrikam Global is a full-stack web application built with React.js, TypeScript, Redux, Chakra UI, React Hook Form, Node.js, Express.js, and Microsoft SQL. The application allows you to add, modify, and remove users through a simple UI.
+Fabrikam Global is a full-stack web application built with React.js, TypeScript, Redux, Chakra UI, React Hook Form, Node.js, Express.js, and PostgreSQL. The application allows you to add, modify, and remove users through a simple UI.
 
 ## How to run it locally
 
