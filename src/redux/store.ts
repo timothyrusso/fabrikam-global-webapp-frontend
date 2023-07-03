@@ -1,5 +1,4 @@
 import { createStore } from 'redux';
-import { UserActionTypes } from './action.helpers';
 import { User } from '../types/generic-types';
 
 export type RootState = {
@@ -10,7 +9,7 @@ const initialState: RootState = {
   users: [],
 };
 
-const reducer = (state = initialState, action: UserActionTypes) => {
+const reducer = (state = initialState, action: any) => {
   switch (action.type) {
     case 'FETCH_USERS':
       return {

@@ -8,6 +8,7 @@ import {
   toastDeleteSuccess,
   toastCreateSuccess,
 } from '../utils/toast.config';
+import { fetchUsers } from '../redux/toolkitStore';
 
 export const useFabrikamApi = () => {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ export const useFabrikamApi = () => {
       })
       .then((response) => {
         dispatch({ type: 'FETCH_USERS', payload: response });
+        dispatch(fetchUsers(response));
       })
       .catch(handleApiError);
   };

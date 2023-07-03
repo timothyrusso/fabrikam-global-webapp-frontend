@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, configureStore } from '@reduxjs/toolkit';
 import { User } from '../types/generic-types';
 
-type RootState = {
+export type RootState = {
   users: User[];
 };
 
@@ -31,6 +31,6 @@ const userSlice = createSlice({
 
 export const { fetchUsers, updateUser, deleteUser } = userSlice.actions;
 
-export const toolkitStore = configureStore({
+export const store = configureStore({
   reducer: userSlice.reducer,
 });
