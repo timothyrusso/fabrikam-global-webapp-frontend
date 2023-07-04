@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { toastFetchError } from '../../utils/toast.config';
 import { useDispatch } from 'react-redux';
+import { fetchUsersState } from '../../redux/store';
 
 export const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,7 +19,7 @@ export const App = () => {
   useEffect(() => {
     getAllUsers()
       .then((response) => {
-        dispatch({ type: 'FETCH_USERS', payload: response });
+        dispatch(fetchUsersState(response));
       })
       .catch((err) => {
         toast(toastFetchError(err));

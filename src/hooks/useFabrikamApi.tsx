@@ -8,7 +8,11 @@ import {
   toastDeleteSuccess,
   toastCreateSuccess,
 } from '../utils/toast.config';
-import { fetchUsers } from '../redux/store';
+import {
+  fetchUsersState,
+  updateUserState,
+  deleteUserState,
+} from '../redux/store';
 
 export const useFabrikamApi = () => {
   const dispatch = useDispatch();
@@ -24,7 +28,7 @@ export const useFabrikamApi = () => {
     updateUser({ ...newUser, id: newUser.id })
       .then(() => {
         toast(toastUpdateSuccess);
-        dispatch({ type: 'UPDATE_USER', payload: newUser });
+        dispatch(updateUserState(newUser));
       })
       .catch(handleApiError);
   };
@@ -32,7 +36,7 @@ export const useFabrikamApi = () => {
   const handleDeleteUser = (updatedUser: User) => {
     deleteUser({ id: updatedUser.id })
       .then(() => {
-        dispatch({ type: 'DELETE_USER', payload: updatedUser });
+        dispatch(deleteUserState(updatedUser));
         toast(toastDeleteSuccess);
       })
       .catch(handleApiError);
@@ -45,8 +49,7 @@ export const useFabrikamApi = () => {
         return getAllUsers();
       })
       .then((response) => {
-        dispatch({ type: 'FETCH_USERS', payload: response });
-        dispatch(fetchUsers(response));
+        dispatch(fetchUsersState(response));
       })
       .catch(handleApiError);
   };

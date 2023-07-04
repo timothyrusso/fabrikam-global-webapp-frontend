@@ -13,23 +13,24 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    fetchUsers: (state, action: PayloadAction<User[]>) => {
+    fetchUsersState: (state, action: PayloadAction<User[]>) => {
       state.users = action.payload;
     },
-    updateUser: (state, action: PayloadAction<User>) => {
+    updateUserState: (state, action: PayloadAction<User>) => {
       const { id } = action.payload;
       const index = state.users.findIndex((user) => user.id === id);
       if (index !== -1) {
         state.users[index] = action.payload;
       }
     },
-    deleteUser: (state, action: PayloadAction<{ id: number }>) => {
+    deleteUserState: (state, action: PayloadAction<{ id: number }>) => {
       state.users = state.users.filter((user) => user.id !== action.payload.id);
     },
   },
 });
 
-export const { fetchUsers, updateUser, deleteUser } = userSlice.actions;
+export const { fetchUsersState, updateUserState, deleteUserState } =
+  userSlice.actions;
 
 export const store = configureStore({
   reducer: userSlice.reducer,
