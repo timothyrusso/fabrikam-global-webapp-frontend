@@ -1,4 +1,4 @@
-import { createStore } from 'redux';
+import { createSlice, PayloadAction, configureStore } from '@reduxjs/toolkit';
 import { User } from '../types/generic-types';
 
 export type RootState = {
@@ -9,33 +9,28 @@ const initialState: RootState = {
   users: [],
 };
 
-const reducer = (state = initialState, action: any) => {
-  switch (action.type) {
-    case 'FETCH_USERS':
-      return {
-        ...state,
-        users: action.payload,
-      };
-    case 'UPDATE_USER':
-      return {
-        ...state,
-        users: state.users.map((user) => {
-          if (user.id === action.payload.id) {
-            return action.payload;
-          }
-          return user;
-        }),
-      };
-    case 'DELETE_USER':
-      return {
-        ...state,
-        users: state.users.filter((user) => user.id !== action.payload.id),
-      };
-    default:
-      return state;
-  }
-};
+const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    fetchUsers: (state, action: PayloadAction<User[]>) => {
+      state.users = action.payload;
+    },
+    updateUser: (state, action: PayloadAction<User>) => {
+      const { id } = action.payload;
+      const index = state.users.findIndex((user) => user.id === id);
+      if (index !== -1) {
+        state.users[index] = action.payload;
+      }
+    },
+    deleteUser: (state, action: PayloadAction<{ id: number }>) => {
+      state.users = state.users.filter((user) => user.id !== action.payload.id);
+    },
+  },
+});
 
-const store = createStore(reducer);
+export const { fetchUsers, updateUser, deleteUser } = userSlice.actions;
 
-export default store;
+export const store = configureStore({
+  reducer: userSlice.reducer,
+});
