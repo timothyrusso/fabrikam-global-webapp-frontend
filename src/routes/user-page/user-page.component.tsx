@@ -9,7 +9,7 @@ import { formatDateString } from '../../utils/helpers';
 import { User } from '../../types/generic-types';
 import { ConfirmationModalComponent } from '../../components/confirmation-modal/confirmation-modal.component';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { RootState } from '../../redux/userSlice';
 import { useFabrikamApi } from '../../hooks/useFabrikamApi';
 import { useForm } from 'react-hook-form';
 

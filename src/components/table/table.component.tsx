@@ -11,10 +11,11 @@ import {
 import { TableRowComponent } from '../table-row/table-row.component';
 import { ModalComponent } from '../modal/modal.component';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { RootState } from '../../redux/userSlice';
 
 export const TableComponent = () => {
   const users = useSelector((state: RootState) => state.users);
+  console.log(useSelector((state: RootState) => state));
 
   return (
     <TableContainer marginTop={120} marginLeft={5} marginRight={5}>

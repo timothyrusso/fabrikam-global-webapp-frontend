@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { toastFetchError } from '../../utils/toast.config';
 import { useDispatch } from 'react-redux';
-import { fetchUsersState } from '../../redux/store';
+import { fetchUsersState } from '../../redux/userSlice';
 
 export const App = () => {
   const [isLoading, setIsLoading] = useState(true);

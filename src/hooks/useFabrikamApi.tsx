@@ -12,7 +12,7 @@ import {
   fetchUsersState,
   updateUserState,
   deleteUserState,
-} from '../redux/store';
+} from '../redux/userSlice';
 
 export const useFabrikamApi = () => {
   const dispatch = useDispatch();
