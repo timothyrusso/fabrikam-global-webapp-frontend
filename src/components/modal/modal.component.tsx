@@ -61,7 +61,7 @@ export const ModalComponent = () => {
 
   return (
     <>
-      <Button onClick={onOpen} colorScheme="green" size="lg" variant="outline">
+      <Button onClick={onOpen} colorScheme="white" size="lg" variant="outline">
         Aggiungi utente
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
